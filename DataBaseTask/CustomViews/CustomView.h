@@ -1,15 +1,13 @@
 //
-//  ViewController.h
+//  CustomView.h
 //  DataBaseTask
 //
-//  Created by Dzmitry Tarelkin on 7/9/18.
+//  Created by Dzmitry Tarelkin on 7/11/18.
 //  Copyright © 2018 Dzmitry Tarelkin. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface CustomView : UIView
 
 @end
-

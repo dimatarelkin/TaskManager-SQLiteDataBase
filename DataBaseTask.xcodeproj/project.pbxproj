@@ -13,6 +13,12 @@
 		628F649320F3438900C28BA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 628F649220F3438900C28BA1 /* Assets.xcassets */; };
 		628F649620F3438900C28BA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628F649420F3438900C28BA1 /* LaunchScreen.storyboard */; };
 		628F649920F3438900C28BA1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 628F649820F3438900C28BA1 /* main.m */; };
+		628F64A120F343CD00C28BA1 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 628F64A020F343CD00C28BA1 /* libsqlite3.tbd */; };
+		628F64A420F3440000C28BA1 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 628F64A320F3440000C28BA1 /* DBManager.m */; };
+		628F64AC20F3712C00C28BA1 /* EditIInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 628F64AB20F3712C00C28BA1 /* EditIInfoViewController.m */; };
+		628F64B920F4BE6400C28BA1 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 628F64B820F4BE6400C28BA1 /* CustomCell.m */; };
+		628F64BB20F4F2F400C28BA1 /* tasksDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 628F64BA20F4F2F400C28BA1 /* tasksDB.db */; };
+		628F64C920F6188000C28BA1 /* PopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 628F64C820F6188000C28BA1 /* PopUpViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +32,16 @@
 		628F649520F3438900C28BA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		628F649720F3438900C28BA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		628F649820F3438900C28BA1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		628F64A020F343CD00C28BA1 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		628F64A220F3440000C28BA1 /* DBManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		628F64A320F3440000C28BA1 /* DBManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
+		628F64AA20F3712C00C28BA1 /* EditIInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditIInfoViewController.h; sourceTree = "<group>"; };
+		628F64AB20F3712C00C28BA1 /* EditIInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditIInfoViewController.m; sourceTree = "<group>"; };
+		628F64B720F4BE6400C28BA1 /* CustomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
+		628F64B820F4BE6400C28BA1 /* CustomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
+		628F64BA20F4F2F400C28BA1 /* tasksDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = tasksDB.db; sourceTree = "<group>"; };
+		628F64C720F6188000C28BA1 /* PopUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopUpViewController.h; sourceTree = "<group>"; };
+		628F64C820F6188000C28BA1 /* PopUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopUpViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				628F64A120F343CD00C28BA1 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +61,7 @@
 			children = (
 				628F648820F3438800C28BA1 /* DataBaseTask */,
 				628F648720F3438800C28BA1 /* Products */,
+				628F649F20F343CC00C28BA1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,15 +78,81 @@
 			children = (
 				628F648920F3438800C28BA1 /* AppDelegate.h */,
 				628F648A20F3438800C28BA1 /* AppDelegate.m */,
-				628F648C20F3438800C28BA1 /* ViewController.h */,
-				628F648D20F3438800C28BA1 /* ViewController.m */,
+				628F64AD20F39EF000C28BA1 /* Controllers */,
+				628F64BF20F5FD4700C28BA1 /* Custom Cells */,
+				628F64AE20F39F1100C28BA1 /* DataBaseManager */,
 				628F648F20F3438800C28BA1 /* Main.storyboard */,
 				628F649220F3438900C28BA1 /* Assets.xcassets */,
+				628F64BA20F4F2F400C28BA1 /* tasksDB.db */,
 				628F649420F3438900C28BA1 /* LaunchScreen.storyboard */,
 				628F649720F3438900C28BA1 /* Info.plist */,
 				628F649820F3438900C28BA1 /* main.m */,
 			);
 			path = DataBaseTask;
+			sourceTree = "<group>";
+		};
+		628F649F20F343CC00C28BA1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				628F64A020F343CD00C28BA1 /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		628F64AD20F39EF000C28BA1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				628F64CA20F7662F00C28BA1 /* ViewController(With TableView) */,
+				628F64CB20F7665800C28BA1 /* EditInfoViewController */,
+				628F64CC20F7666700C28BA1 /* PopUpViewController */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		628F64AE20F39F1100C28BA1 /* DataBaseManager */ = {
+			isa = PBXGroup;
+			children = (
+				628F64A220F3440000C28BA1 /* DBManager.h */,
+				628F64A320F3440000C28BA1 /* DBManager.m */,
+			);
+			path = DataBaseManager;
+			sourceTree = "<group>";
+		};
+		628F64BF20F5FD4700C28BA1 /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				628F64B720F4BE6400C28BA1 /* CustomCell.h */,
+				628F64B820F4BE6400C28BA1 /* CustomCell.m */,
+			);
+			name = "Custom Cells";
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		628F64CA20F7662F00C28BA1 /* ViewController(With TableView) */ = {
+			isa = PBXGroup;
+			children = (
+				628F648C20F3438800C28BA1 /* ViewController.h */,
+				628F648D20F3438800C28BA1 /* ViewController.m */,
+			);
+			path = "ViewController(With TableView)";
+			sourceTree = "<group>";
+		};
+		628F64CB20F7665800C28BA1 /* EditInfoViewController */ = {
+			isa = PBXGroup;
+			children = (
+				628F64AA20F3712C00C28BA1 /* EditIInfoViewController.h */,
+				628F64AB20F3712C00C28BA1 /* EditIInfoViewController.m */,
+			);
+			path = EditInfoViewController;
+			sourceTree = "<group>";
+		};
+		628F64CC20F7666700C28BA1 /* PopUpViewController */ = {
+			isa = PBXGroup;
+			children = (
+				628F64C720F6188000C28BA1 /* PopUpViewController.h */,
+				628F64C820F6188000C28BA1 /* PopUpViewController.m */,
+			);
+			path = PopUpViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -131,6 +215,7 @@
 				628F649620F3438900C28BA1 /* LaunchScreen.storyboard in Resources */,
 				628F649320F3438900C28BA1 /* Assets.xcassets in Resources */,
 				628F649120F3438800C28BA1 /* Main.storyboard in Resources */,
+				628F64BB20F4F2F400C28BA1 /* tasksDB.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,9 +226,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				628F64AC20F3712C00C28BA1 /* EditIInfoViewController.m in Sources */,
 				628F648E20F3438800C28BA1 /* ViewController.m in Sources */,
+				628F64B920F4BE6400C28BA1 /* CustomCell.m in Sources */,
+				628F64C920F6188000C28BA1 /* PopUpViewController.m in Sources */,
 				628F649920F3438900C28BA1 /* main.m in Sources */,
 				628F648B20F3438800C28BA1 /* AppDelegate.m in Sources */,
+				628F64A420F3440000C28BA1 /* DBManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
