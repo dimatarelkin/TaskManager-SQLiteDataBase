@@ -19,21 +19,21 @@
     [super viewDidLoad];
 
     //textInfo
+    self.textInfoTextView.textColor = UIColor.whiteColor;
     self.textInfoTextView.layer.borderWidth = 0.5;
     self.textInfoTextView.layer.borderColor = UIColor.lightGrayColor.CGColor;
-    self.textInfoTextView.text = @"Какой-то текст";
   
     //popUpView
     self.popUpView.layer.cornerRadius = 30;
-    self.popUpView.backgroundColor = UIColor.whiteColor;
-    self.popUpView.layer.borderWidth =1;
-    self.popUpView.layer.borderColor = UIColor.lightGrayColor.CGColor;
+    self.popUpView.layer.borderWidth =3;
+    self.popUpView.layer.borderColor = UIColor.darkGrayColor.CGColor;
     self.addInfoLabel.layer.cornerRadius = 30;
     
     //buttons
+    self.cancelButton.titleLabel.textColor = UIColor.whiteColor;
     self.cancelButton.layer.cornerRadius = 30;
-    self.cancelButton.layer.borderWidth = 1;
-    self.cancelButton.layer.borderColor = UIColor.lightGrayColor.CGColor;
+    self.cancelButton.layer.borderWidth = 3;
+    self.cancelButton.layer.borderColor = UIColor.darkGrayColor.CGColor;
     
     UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDown:)];
     swipe.direction = UISwipeGestureRecognizerDirectionDown;

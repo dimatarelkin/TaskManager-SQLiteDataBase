@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ManagerLayerForCoreDataAndSQLite.h"
 
-@interface DBManager : NSObject
+@interface DBManager : NSObject <ManagerDataBaseProtocol>
 
 @property (nonatomic, strong) NSMutableArray *arrColumnNames;
 @property (nonatomic, assign) int affectedRows;

@@ -176,6 +176,7 @@
     [self runQuery:[query UTF8String] isQueryExecutable:NO];
     
     //return the loaded results
+    NSLog(@"%@",[self.arrResults componentsJoinedByString:@"-"]);
     return (NSArray *)self.arrResults;
 }
 
@@ -183,6 +184,7 @@
     //run the query
     [self runQuery: [query UTF8String] isQueryExecutable:YES];
 }
+
 
 
 

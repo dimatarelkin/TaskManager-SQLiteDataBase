@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DBManager.h"
+#import "ManagerLayerForCoreDataAndSQLite.h"
 
 
 @protocol EditInfoViewControllerDelegate
@@ -15,6 +16,7 @@
 @end
 
 @interface EditIInfoViewController : UIViewController <UITextFieldDelegate>
+@property (strong, nonatomic) ManagerLayerForCoreDataAndSQLite* mainManager;
 
 @property (strong, nonatomic) DBManager * dbManager;
 @property (weak, nonatomic) id<EditInfoViewControllerDelegate> delegate;

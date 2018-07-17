@@ -10,16 +10,22 @@
 #import "DBManager.h"
 #import "CustomCell.h"
 #import "PopUpViewController.h"
+#import "ManagerLayerForCoreDataAndSQLite.h"
 
 
 @interface ViewController ()<UITableViewDelegate, UITableViewDataSource>
+
+#warning TableView DATA MANAGAER
+//layerManager
+@property (strong, nonatomic) ManagerLayerForCoreDataAndSQLite* dataManager;
+
 @property (strong, nonatomic) DBManager *dbManager;
 
 //dataSource
 @property (strong, nonatomic) NSArray* dataSourceArrayOfTasks;
 @property (nonatomic, assign) int recordIDToEdit;
 
-//popOver
+//popUp
 @property (strong, nonatomic) NSString* additionalInfoForAlert;
 @property (strong, nonatomic) PopUpViewController* popUpVC;
 
@@ -45,11 +51,15 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
     self.tableViewOfTasks.dataSource = self;
     
     self.currentTaskLabel.layer.cornerRadius = 30;
-    self.currentTaskLabel.layer.borderColor = UIColor.lightGrayColor.CGColor;
-    self.currentTaskLabel.layer.borderWidth = 0.5f;
+    self.currentTaskLabel.layer.borderColor = UIColor.darkGrayColor.CGColor;
+    self.currentTaskLabel.layer.borderWidth = 3;
     
+    
+#warning TableView LOAD DATA
     //load DB
     self.dbManager = [[DBManager alloc] initWithDataBaseFileName:@"tasksDB.db"];
+    
+    
     
     //loading data from DB
     [self loadData];
@@ -74,6 +84,7 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 
 #pragma mark - Loading Data
 
+#warning TableView LOADING DATA FROM SQLite
 - (void)loadData {
 
     NSString* loadDataQuery = @"select * from Tasks;";
@@ -85,6 +96,8 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
     
     self.dataSourceArrayOfTasks = [[NSArray alloc] initWithArray:[self.dbManager loadDataFromDB:loadDataQuery]];
     
+//    self.dataSourceArrayOfTasks = [self.dataManager fetchDataFromDataBaseWithType:SQLiteType];
+    
     //reload the table view
     [self.tableViewOfTasks reloadData];
     
@@ -95,6 +108,7 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 #pragma mark - EditInfoViewControllerDelegate
 - (void)editngInfoWasFinished {
    //reload the data
+#warning TableView вызов load data
    [self loadData];
     NSLog(@"reload table with NEW data: \n%@ \nnumber of elements = %lu",[self.dataSourceArrayOfTasks componentsJoinedByString:@"\n"],
                                                                            [self.dataSourceArrayOfTasks count]);
@@ -135,6 +149,8 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 
 - (UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
+    
+#warning from db to tableView
     //dequeue the cell
     CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
@@ -218,7 +234,7 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50.0;
+    return 80.0;
 }
 
 
@@ -233,7 +249,7 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-   
+#warning deleting from DB
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         //delete the selected record
         //find the record ID
@@ -242,6 +258,7 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
         
         //execute the query
         [self.dbManager executeQuery:deleteQeuery];
+
         
         //reload table
         [self loadData];

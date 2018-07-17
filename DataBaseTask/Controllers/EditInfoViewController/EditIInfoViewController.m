@@ -30,6 +30,7 @@
     self.additionalInfoTextView.layer.borderWidth = 1;
     self.additionalInfoTextView.layer.borderColor = UIColor.lightGrayColor.CGColor;
    
+#warning EditVC CREATE DBManager
     //db create connection
     self.dbManager = [[DBManager alloc] initWithDataBaseFileName:@"tasksDB.db"];
     
@@ -42,6 +43,7 @@
 
 
 - (IBAction)saveInfo:(id)sender {
+#warning EditVC INSERT or UPDATE
     //prepare the query string
     NSString *query;
     
@@ -58,9 +60,9 @@
         
     } else {
         
-        query = [NSString stringWithFormat:@"update Tasks set taskTitle = '%@', taskAdditionalInfo = '%@', taskPriority = %ld, date = '%f' where taskID = %d",
-                 self.titleOfTaskTextField.text, self.additionalInfoTextView.text,
-                 (long)self.priorityControl.selectedSegmentIndex, [self.datePicker.date timeIntervalSince1970], self.recordIDToEdit];
+            query = [NSString stringWithFormat:@"update Tasks set taskTitle = '%@', taskAdditionalInfo = '%@', taskPriority = %ld, date = '%f' where taskID = %d",
+                     self.titleOfTaskTextField.text, self.additionalInfoTextView.text,
+                     (long)self.priorityControl.selectedSegmentIndex, [self.datePicker.date timeIntervalSince1970], self.recordIDToEdit];
         NSLog(@"Update Query");
     }
     
@@ -82,6 +84,8 @@
 }
 
 - (void)loadInfoToEdit {
+    
+#warning EditVC LOAD INFO
     //create the Query
     
     NSString* query = [NSString stringWithFormat:@"select * from Tasks where taskID = %d",self.recordIDToEdit];

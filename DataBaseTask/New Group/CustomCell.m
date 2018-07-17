@@ -27,6 +27,7 @@
 - (void)drawRect:(CGRect)rect {
     self.priorityView.layer.cornerRadius = 50;
     self.priorityView.layer.shadowColor = UIColor.blackColor.CGColor;
+   
 }
 
 

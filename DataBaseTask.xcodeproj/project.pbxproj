@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		62315F4E20FCB71A00064530 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62315F4D20FCB71A00064530 /* CoreDataManager.m */; };
+		62315F5220FCB7A500064530 /* ManagerLayerForCoreDataAndSQLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 62315F5120FCB7A500064530 /* ManagerLayerForCoreDataAndSQLite.m */; };
 		628F648B20F3438800C28BA1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 628F648A20F3438800C28BA1 /* AppDelegate.m */; };
 		628F648E20F3438800C28BA1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 628F648D20F3438800C28BA1 /* ViewController.m */; };
 		628F649120F3438800C28BA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 628F648F20F3438800C28BA1 /* Main.storyboard */; };
@@ -19,9 +21,17 @@
 		628F64B920F4BE6400C28BA1 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 628F64B820F4BE6400C28BA1 /* CustomCell.m */; };
 		628F64BB20F4F2F400C28BA1 /* tasksDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 628F64BA20F4F2F400C28BA1 /* tasksDB.db */; };
 		628F64C920F6188000C28BA1 /* PopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 628F64C820F6188000C28BA1 /* PopUpViewController.m */; };
+		62CA351020FDD24600CAF132 /* Tasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CA350F20FDD24600CAF132 /* Tasks.m */; };
+		62CA351720FE113500CAF132 /* TaskObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CA351620FE113500CAF132 /* TaskObject.m */; };
+		62FF994E20FC93F80038F931 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FF994D20FC93F80038F931 /* CoreData.framework */; };
+		62FF995120FC94330038F931 /* CoreDataTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 62FF994F20FC94330038F931 /* CoreDataTest.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		62315F4C20FCB71A00064530 /* CoreDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
+		62315F4D20FCB71A00064530 /* CoreDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
+		62315F5020FCB7A500064530 /* ManagerLayerForCoreDataAndSQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ManagerLayerForCoreDataAndSQLite.h; sourceTree = "<group>"; };
+		62315F5120FCB7A500064530 /* ManagerLayerForCoreDataAndSQLite.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ManagerLayerForCoreDataAndSQLite.m; sourceTree = "<group>"; };
 		628F648620F3438800C28BA1 /* DataBaseTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DataBaseTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		628F648920F3438800C28BA1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		628F648A20F3438800C28BA1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -42,6 +52,12 @@
 		628F64BA20F4F2F400C28BA1 /* tasksDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = tasksDB.db; sourceTree = "<group>"; };
 		628F64C720F6188000C28BA1 /* PopUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopUpViewController.h; sourceTree = "<group>"; };
 		628F64C820F6188000C28BA1 /* PopUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopUpViewController.m; sourceTree = "<group>"; };
+		62CA350E20FDD24600CAF132 /* Tasks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tasks.h; sourceTree = "<group>"; };
+		62CA350F20FDD24600CAF132 /* Tasks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tasks.m; sourceTree = "<group>"; };
+		62CA351520FE113500CAF132 /* TaskObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskObject.h; sourceTree = "<group>"; };
+		62CA351620FE113500CAF132 /* TaskObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskObject.m; sourceTree = "<group>"; };
+		62FF994D20FC93F80038F931 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		62FF995020FC94330038F931 /* taskModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = taskModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62FF994E20FC93F80038F931 /* CoreData.framework in Frameworks */,
 				628F64A120F343CD00C28BA1 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,6 +73,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		62315F4F20FCB73800064530 /* CoreDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				62315F4C20FCB71A00064530 /* CoreDataManager.h */,
+				62315F4D20FCB71A00064530 /* CoreDataManager.m */,
+				62CA351120FDD31E00CAF132 /* CoreDataObjectModels */,
+			);
+			path = CoreDataManager;
+			sourceTree = "<group>";
+		};
+		62315F5320FCB7AB00064530 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				62315F5020FCB7A500064530 /* ManagerLayerForCoreDataAndSQLite.h */,
+				62315F5120FCB7A500064530 /* ManagerLayerForCoreDataAndSQLite.m */,
+				628F64AE20F39F1100C28BA1 /* DataBaseManager */,
+				62315F4F20FCB73800064530 /* CoreDataManager */,
+				62CA351820FE114600CAF132 /* ObjectWithData */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		628F647D20F3438800C28BA1 = {
 			isa = PBXGroup;
 			children = (
@@ -80,9 +119,10 @@
 				628F648A20F3438800C28BA1 /* AppDelegate.m */,
 				628F64AD20F39EF000C28BA1 /* Controllers */,
 				628F64BF20F5FD4700C28BA1 /* Custom Cells */,
-				628F64AE20F39F1100C28BA1 /* DataBaseManager */,
+				62315F5320FCB7AB00064530 /* Manager */,
 				628F648F20F3438800C28BA1 /* Main.storyboard */,
 				628F649220F3438900C28BA1 /* Assets.xcassets */,
+				62FF994F20FC94330038F931 /* CoreDataTest.xcdatamodeld */,
 				628F64BA20F4F2F400C28BA1 /* tasksDB.db */,
 				628F649420F3438900C28BA1 /* LaunchScreen.storyboard */,
 				628F649720F3438900C28BA1 /* Info.plist */,
@@ -94,6 +134,7 @@
 		628F649F20F343CC00C28BA1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				62FF994D20FC93F80038F931 /* CoreData.framework */,
 				628F64A020F343CD00C28BA1 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
@@ -155,6 +196,24 @@
 			path = PopUpViewController;
 			sourceTree = "<group>";
 		};
+		62CA351120FDD31E00CAF132 /* CoreDataObjectModels */ = {
+			isa = PBXGroup;
+			children = (
+				62CA350E20FDD24600CAF132 /* Tasks.h */,
+				62CA350F20FDD24600CAF132 /* Tasks.m */,
+			);
+			path = CoreDataObjectModels;
+			sourceTree = "<group>";
+		};
+		62CA351820FE114600CAF132 /* ObjectWithData */ = {
+			isa = PBXGroup;
+			children = (
+				62CA351520FE113500CAF132 /* TaskObject.h */,
+				62CA351620FE113500CAF132 /* TaskObject.m */,
+			);
+			path = ObjectWithData;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -186,6 +245,7 @@
 				TargetAttributes = {
 					628F648520F3438800C28BA1 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
 					};
 				};
 			};
@@ -226,11 +286,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62315F5220FCB7A500064530 /* ManagerLayerForCoreDataAndSQLite.m in Sources */,
 				628F64AC20F3712C00C28BA1 /* EditIInfoViewController.m in Sources */,
 				628F648E20F3438800C28BA1 /* ViewController.m in Sources */,
+				62FF995120FC94330038F931 /* CoreDataTest.xcdatamodeld in Sources */,
+				62315F4E20FCB71A00064530 /* CoreDataManager.m in Sources */,
+				62CA351020FDD24600CAF132 /* Tasks.m in Sources */,
 				628F64B920F4BE6400C28BA1 /* CustomCell.m in Sources */,
 				628F64C920F6188000C28BA1 /* PopUpViewController.m in Sources */,
 				628F649920F3438900C28BA1 /* main.m in Sources */,
+				62CA351720FE113500CAF132 /* TaskObject.m in Sources */,
 				628F648B20F3438800C28BA1 /* AppDelegate.m in Sources */,
 				628F64A420F3440000C28BA1 /* DBManager.m in Sources */,
 			);
@@ -372,6 +437,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = DataBaseTask/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -380,6 +446,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Dmitry.Tarelkin1234567.DataBaseTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DataBaseTask/DataBaseTask-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -388,6 +457,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = DataBaseTask/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -396,6 +466,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Dmitry.Tarelkin1234567.DataBaseTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DataBaseTask/DataBaseTask-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -422,6 +494,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		62FF994F20FC94330038F931 /* CoreDataTest.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				62FF995020FC94330038F931 /* taskModel.xcdatamodel */,
+			);
+			currentVersion = 62FF995020FC94330038F931 /* taskModel.xcdatamodel */;
+			path = CoreDataTest.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 628F647E20F3438800C28BA1 /* Project object */;
 }
