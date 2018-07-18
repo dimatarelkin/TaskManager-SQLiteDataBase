@@ -7,6 +7,8 @@
 //
 
 #import "EditIInfoViewController.h"
+#import "TaskObject.h"
+
 
 
 
@@ -23,16 +25,24 @@
     [super viewDidLoad];
     self.navigationController.navigationBar.tintColor = self.navigationItem.rightBarButtonItem.tintColor;
     self.titleOfTaskTextField.delegate = self;
-    
+    self.additionalInfoTextView.delegate = self;
     
     //customize TextView
     self.additionalInfoTextView.layer.cornerRadius = 10;
-    self.additionalInfoTextView.layer.borderWidth = 1;
+    self.additionalInfoTextView.layer.borderWidth = 0.5;
     self.additionalInfoTextView.layer.borderColor = UIColor.lightGrayColor.CGColor;
+    
+    //customize titleTextfield
+    self.titleOfTaskTextField.layer.cornerRadius = 10;
+    self.titleOfTaskTextField.layer.borderWidth = 0.5;
+    self.titleOfTaskTextField.layer.borderColor = UIColor.lightGrayColor.CGColor;
+    
+    //customize date picker
+    [self.datePicker setValue:UIColor.whiteColor forKey:@"textColor"];
    
-#warning EditVC CREATE DBManager
-    //db create connection
-    self.dbManager = [[DBManager alloc] initWithDataBaseFileName:@"tasksDB.db"];
+    //create main manager
+    
+    [self createMainManagerWithIndexType:0];
     
     // Check if should load specific record for editing.
     if (self.recordIDToEdit != -1) {
@@ -41,78 +51,48 @@
     }
 }
 
+-(void)createMainManagerWithIndexType:(NSInteger)type {
+    if (type == 0) {
+        self.mainManager = [[ManagerLayerForCoreDataAndSQLite alloc] initWithDataBaseType:SQLiteType];
+    } else {
+        self.mainManager = [[ManagerLayerForCoreDataAndSQLite alloc] initWithDataBaseType:CoreDataType];
+    }
+}
+
 
 - (IBAction)saveInfo:(id)sender {
-#warning EditVC INSERT or UPDATE
-    //prepare the query string
-    NSString *query;
     
     [self.datePicker.date timeIntervalSince1970];
+    TaskObject* task = [[TaskObject alloc] init];
     
-    // If the recordIDToEdit property has value other than -1, then create an update query. Otherwise create an insert query.
+    task.iD                 = [NSNumber numberWithInteger:self.recordIDToEdit];
+    task.taskTitle          = self.titleOfTaskTextField.text;
+    task.taskAdditionalInfo = self.additionalInfoTextView.text;
+    task.taskPriority       = [NSNumber numberWithInteger: self.priorityControl.selectedSegmentIndex];
+    task.taskDate           = self.datePicker.date;
+    
     if (self.recordIDToEdit == -1) {
-        NSLog(@"Segmented = %ld",(long)self.priorityControl.selectedSegmentIndex);
-        query = [NSString stringWithFormat:@"insert into Tasks values(null, '%@', '%@', %ld, '%f')",
-                 self.titleOfTaskTextField.text,
-                 self.additionalInfoTextView.text,
-                 (long)self.priorityControl.selectedSegmentIndex, [self.datePicker.date timeIntervalSince1970]];
-        NSLog(@"Insert Query");
-        
+        [self.mainManager addData:task];
     } else {
-        
-            query = [NSString stringWithFormat:@"update Tasks set taskTitle = '%@', taskAdditionalInfo = '%@', taskPriority = %ld, date = '%f' where taskID = %d",
-                     self.titleOfTaskTextField.text, self.additionalInfoTextView.text,
-                     (long)self.priorityControl.selectedSegmentIndex, [self.datePicker.date timeIntervalSince1970], self.recordIDToEdit];
-        NSLog(@"Update Query");
+        [self.mainManager updateData:task];
     }
+
+    //inform the delegate that editing was finished
+    [self.delegate editngInfoWasFinished];
+    [self.navigationController popViewControllerAnimated:YES];
     
-    //execute the query
-    [self.dbManager executeQuery:query];
-    
-    // If the query was successfully executed then pop the view controller.
-    if (self.dbManager.affectedRows != 0) {
-        NSLog(@"Query was executed succesfully, AffectedRows = %d", self.dbManager.affectedRows);
-        
-        //inform the delegate that editing was finished
-        [self.delegate editngInfoWasFinished];
-        
-        //pop the viewController
-        [self.navigationController popViewControllerAnimated:YES];
-    } else {
-        NSLog(@"Could not execute the query");
-    }
 }
 
+
 - (void)loadInfoToEdit {
-    
-#warning EditVC LOAD INFO
-    //create the Query
-    
-    NSString* query = [NSString stringWithFormat:@"select * from Tasks where taskID = %d",self.recordIDToEdit];
-    
-    //laod data
-    NSArray* resultData = [[NSArray alloc] initWithArray:[self.dbManager loadDataFromDB:query]];
-    
-    NSInteger indexOfTaskTitle = [self.dbManager.arrColumnNames indexOfObject:@"taskTitle"];
-    NSInteger indexOfAdditionalInfo = [self.dbManager.arrColumnNames indexOfObject:@"taskAdditionalInfo"];
-    NSInteger indexOfPriority = [self.dbManager.arrColumnNames indexOfObject:@"taskPriority"];
-    NSInteger indexOfDate = [self.dbManager.arrColumnNames indexOfObject:@"date"];
-    
-    //set the loaded data to textFields
-    self.titleOfTaskTextField.text = [NSString stringWithFormat:@"%@", [[resultData objectAtIndex:0] objectAtIndex:indexOfTaskTitle]];
-    self.additionalInfoTextView.text = [NSString stringWithFormat:@"%@", [[resultData objectAtIndex:0] objectAtIndex:indexOfAdditionalInfo]];
-    
-    NSNumber *priorityNumber = (NSNumber*)[[resultData objectAtIndex:0] objectAtIndex:indexOfPriority];
-    [self.priorityControl setSelectedSegmentIndex:[priorityNumber integerValue] ];
-    
-    //date
-    NSNumber* numberWithDate = (NSNumber*)[[resultData objectAtIndex:0]objectAtIndex:indexOfDate];
-    
-    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[numberWithDate doubleValue]];
-    NSLog(@"DATE!!!!!!");
-    self.datePicker.date = date;
-    
+    TaskObject *task = [self.mainManager fetchTaskObjectWithID:[NSNumber numberWithInteger:self.recordIDToEdit]];
+    self.titleOfTaskTextField.text = task.taskTitle;
+    self.additionalInfoTextView.text = task.taskAdditionalInfo;
+    [self.priorityControl setSelectedSegmentIndex:[task.taskPriority integerValue]];
+    self.datePicker.date = task.taskDate;
 }
+
+
 
 
 
@@ -120,9 +100,14 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    
+    NSLog(@"enter");
     return YES;
 }
 
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
+    [textView resignFirstResponder];
+    NSLog(@"text view enter");
+    return YES;
+}
 
 @end

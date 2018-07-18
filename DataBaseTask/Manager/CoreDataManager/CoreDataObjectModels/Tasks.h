@@ -9,14 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-//entity name
-static NSString * const kTaskEntityName = @"Tasks";
-//Attributes
-static NSString * const kTaskID = @"iD";
-static NSString * const kTaskAttributeTitle = @"taskTitle";
-static NSString * const kTaskAttributePriority = @"taskPriority";
+
+static NSString * const kTaskEntityName              = @"Tasks";                   
+static NSString * const kTaskID                      = @"iD";
+static NSString * const kTaskAttributeTitle          = @"taskTitle";
+static NSString * const kTaskAttributePriority       = @"taskPriority";
 static NSString * const kTaskAttributeAdditionalInfo = @"taskAdditionalInfo";
-static NSString * const kTaskAttributeDate = @"taskDate";
+static NSString * const kTaskAttributeDate           = @"taskDate";
 
 
 @interface Tasks : NSManagedObject

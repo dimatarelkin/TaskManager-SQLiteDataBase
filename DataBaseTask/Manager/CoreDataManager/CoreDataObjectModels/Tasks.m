@@ -116,14 +116,5 @@
 }
 
 
--(BOOL)validateValue:(id  _Nullable __autoreleasing *)value forKey:(NSString *)key error:(NSError * _Nullable __autoreleasing *)error {
-    return YES;
-}
-
--(BOOL)validateTaskTitle:(id  _Nullable __autoreleasing *)value forKey:(NSString *)key error:(NSError * _Nullable __autoreleasing *)error {
-    
-    *error = [NSError errorWithDomain:@"BAD TITLE" code:1 userInfo:nil];
-    return NO;
-}
 
 @end

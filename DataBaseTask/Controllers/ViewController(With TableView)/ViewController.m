@@ -17,9 +17,7 @@
 
 #warning TableView DATA MANAGAER
 //layerManager
-@property (strong, nonatomic) ManagerLayerForCoreDataAndSQLite* dataManager;
-
-@property (strong, nonatomic) DBManager *dbManager;
+@property (strong, nonatomic) ManagerLayerForCoreDataAndSQLite* mainManager;
 
 //dataSource
 @property (strong, nonatomic) NSArray* dataSourceArrayOfTasks;
@@ -35,6 +33,7 @@
 @end
 
 
+static NSString * const kStorageState = @"storageTypeControl";
 
 static NSString* cellIdentifier = @"idCellIdentifier";
 static NSString* segueIdentifierEditInfo = @"idSegueEditInfo";
@@ -52,14 +51,10 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
     
     self.currentTaskLabel.layer.cornerRadius = 30;
     self.currentTaskLabel.layer.borderColor = UIColor.darkGrayColor.CGColor;
-    self.currentTaskLabel.layer.borderWidth = 3;
+    self.currentTaskLabel.layer.borderWidth = 2;
     
-    
-#warning TableView LOAD DATA
-    //load DB
-    self.dbManager = [[DBManager alloc] initWithDataBaseFileName:@"tasksDB.db"];
-    
-    
+    //create main manager and load
+    [self loadStorageStateAndCreateDataBaseManager];
     
     //loading data from DB
     [self loadData];
@@ -69,51 +64,57 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 
 
 
+#pragma mark Save UserDefaults
+- (void)saveStorageState {
+    NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
+    [userDefault setInteger:self.storageTypeControl.selectedSegmentIndex forKey:kStorageState];
+    [userDefault synchronize];
+}
+
+-(void)loadStorageStateAndCreateDataBaseManager {
+    NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
+    self.storageTypeControl.selectedSegmentIndex = [userDefault integerForKey:kStorageState];
+    self.mainManager = [[ManagerLayerForCoreDataAndSQLite alloc] initWithDataBaseType:
+                        self.storageTypeControl.selectedSegmentIndex == 0 ? SQLiteType : CoreDataType];
+}
+
+
 #pragma mark - Actions
 
-- (IBAction)addNewRecord:(id)sender {
-    
-    // setting -1 value to the recordIDToEdit to add a new record
-    self.recordIDToEdit = -1;
+- (IBAction)storageAction:(UISegmentedControl*)sender {
+    self.mainManager.type = sender.selectedSegmentIndex == 0 ? SQLiteType : CoreDataType;
+    [self saveStorageState];
+    NSLog(@"Storage change to %@", self.storageTypeControl.selectedSegmentIndex == 0 ? @"SQLiteType" : @"CoreDataType");
+}
 
-    //perform the segue
-    [self performSegueWithIdentifier:segueIdentifierEditInfo sender:self];
+
+- (IBAction)addNewRecord:(id)sender {
+    self.recordIDToEdit = -1;  // setting -1 value to the recordIDToEdit to add a new record
+    [self performSegueWithIdentifier:segueIdentifierEditInfo sender:self];  //perform the segue
 }
 
 
 
 #pragma mark - Loading Data
 
-#warning TableView LOADING DATA FROM SQLite
 - (void)loadData {
-
-    NSString* loadDataQuery = @"select * from Tasks;";
-    
-    //get the results
     if (self.dataSourceArrayOfTasks!= nil) {
         self.dataSourceArrayOfTasks = nil;
     }
-    
-    self.dataSourceArrayOfTasks = [[NSArray alloc] initWithArray:[self.dbManager loadDataFromDB:loadDataQuery]];
-    
-//    self.dataSourceArrayOfTasks = [self.dataManager fetchDataFromDataBaseWithType:SQLiteType];
-    
-    //reload the table view
-    [self.tableViewOfTasks reloadData];
-    
+    self.dataSourceArrayOfTasks = [self.mainManager fetchAllDataTaskObjects];
+    [self.tableViewOfTasks reloadData];     //reload the table view
 }
 
 
 
 #pragma mark - EditInfoViewControllerDelegate
-- (void)editngInfoWasFinished {
-   //reload the data
-#warning TableView вызов load data
-   [self loadData];
-    NSLog(@"reload table with NEW data: \n%@ \nnumber of elements = %lu",[self.dataSourceArrayOfTasks componentsJoinedByString:@"\n"],
-                                                                           [self.dataSourceArrayOfTasks count]);
-}
 
+- (void)editngInfoWasFinished {
+   [self loadData];
+    NSLog(@"reload table with NEW DATASOURCE: \n%@ \nnumber of elements = %lu",
+          [self.dataSourceArrayOfTasks componentsJoinedByString:@"\n"],
+          [self.dataSourceArrayOfTasks count]);
+}
 
 
 
@@ -125,6 +126,7 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
         EditIInfoViewController *editInfoController = [segue destinationViewController];
         editInfoController.delegate = self;
         editInfoController.recordIDToEdit = self.recordIDToEdit;
+        editInfoController.mainManager.type = self.mainManager.type;
    
     } else if ([segue.identifier isEqualToString:seguePopUpIdentidier]) {
         self.popUpVC = [segue destinationViewController];
@@ -148,64 +150,27 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 
 
 - (UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    
-    
-#warning from db to tableView
     //dequeue the cell
     CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    NSInteger indexOfTaskID = [self.dbManager.arrColumnNames indexOfObject:@"taskID"];
-    NSInteger indexOfTaskTitle = [self.dbManager.arrColumnNames indexOfObject:@"taskTitle"];
-    NSInteger indexOfPriority = [self.dbManager.arrColumnNames indexOfObject:@"taskPriority"];
-    NSInteger indexOfAdditionalInfo = [self.dbManager.arrColumnNames indexOfObject:@"taskAdditionalInfo"];
-    NSInteger indexOfDate = [self.dbManager.arrColumnNames indexOfObject:@"date"];
+    cell.priorityView.layer.cornerRadius = 40;
     
-    //if cell not created
-    if (!cell) {
-        cell = [[CustomCell alloc] init];
-        NSLog(@"new cell created %ld",(long)indexPath.row);
-        return cell;
-    }
-    
-    //setting the data to cell label
-    cell.titleLabel.text = [NSString stringWithFormat:@"%@",
-                           [[self.dataSourceArrayOfTasks objectAtIndex:indexPath.row] objectAtIndex:indexOfTaskTitle]];
-   
-    //priority
-    NSNumber *priorityNumber = (NSNumber*)[[self.dataSourceArrayOfTasks objectAtIndex:indexPath.row] objectAtIndex:indexOfPriority];
-    NSString *priority;
-    switch (priorityNumber.integerValue) {
-        case 0:
-            priority = @"High";
-            [self changePriorityColor:0 forCell:cell];
-            break;
-        case 1:
-            priority = @"Normal";
-            [self changePriorityColor:1 forCell:cell];
-            break;
-        case 2:
-            priority = @"low";
-            [self changePriorityColor:2 forCell:cell];
-        default:
-            break;
-    }
-    
-    cell.priorityLabel.text = [NSString stringWithFormat:@"Priority: %@",priority];
+    TaskObject *task = [[TaskObject alloc] init];
+    task.iD                 = [(TaskObject*)[self.dataSourceArrayOfTasks objectAtIndex:indexPath.row] iD];
+    task.taskTitle          = [(TaskObject*)[self.dataSourceArrayOfTasks objectAtIndex:indexPath.row] taskTitle];
+    task.taskAdditionalInfo = [(TaskObject*)[self.dataSourceArrayOfTasks objectAtIndex:indexPath.row] taskAdditionalInfo];
+    task.taskPriority       = [(TaskObject*)[self.dataSourceArrayOfTasks objectAtIndex:indexPath.row] taskPriority];
+    task.taskDate           = [(TaskObject*)[self.dataSourceArrayOfTasks objectAtIndex:indexPath.row] taskDate];
 
+    //setting the data to cell label
+    cell.titleLabel.text = [NSString stringWithFormat:@"%@",task.taskTitle];
+    cell.additionalInfo = task.taskAdditionalInfo;
+    //set priority
+    [self setPriority:task.taskPriority.integerValue ForCell:cell];
+    
     //date
-    NSNumber* numberWithDate = (NSNumber*)[[self.dataSourceArrayOfTasks objectAtIndex:indexPath.row] objectAtIndex:indexOfDate];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd MMM yyyy"];
-    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[numberWithDate doubleValue]];
-    
-    cell.dateLabel.text = [dateFormatter stringFromDate:date];
-    
-    //additionalInfo
-    //popup info
-    
-    NSString* newInfo = [NSString stringWithFormat:@"%@",
-                                 [[self.dataSourceArrayOfTasks objectAtIndex:indexPath.row]
-                                  objectAtIndex:indexOfAdditionalInfo]];
-    cell.additionalInfo = newInfo;
+    cell.dateLabel.text = [dateFormatter stringFromDate:task.taskDate];
 
     NSLog(@"add text - %@", cell.additionalInfo);
     
@@ -213,6 +178,25 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 }
 
 
+-(void)setPriority:(NSInteger)priority ForCell:(CustomCell*)cell {
+    NSString *priorityString;
+    switch (priority) {
+        case 0:
+            priorityString = @"High";
+            [self changePriorityColor:0 forCell:cell];
+            break;
+        case 1:
+            priorityString = @"Normal";
+            [self changePriorityColor:1 forCell:cell];
+            break;
+        case 2:
+            priorityString = @"Low";
+            [self changePriorityColor:2 forCell:cell];
+        default:
+            break;
+    }
+    cell.priorityLabel.text = [NSString stringWithFormat:@"Priority: %@",priorityString];
+}
 
 
 -(void)changePriorityColor:(NSInteger)priority forCell:(CustomCell*)cell{
@@ -249,17 +233,10 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-#warning deleting from DB
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //delete the selected record
-        //find the record ID
-        int recordIDToDelete = [[[self.dataSourceArrayOfTasks objectAtIndex:indexPath.row] objectAtIndex:0] intValue];
-        NSString *deleteQeuery = [NSString stringWithFormat:@"delete from Tasks where taskID = %d", recordIDToDelete];
-        
-        //execute the query
-        [self.dbManager executeQuery:deleteQeuery];
-
-        
+        TaskObject* task = (TaskObject*)[self.dataSourceArrayOfTasks objectAtIndex:indexPath.row];
+        [self.mainManager deleteData:task];
         //reload table
         [self loadData];
     }
@@ -267,13 +244,10 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    CustomCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    self.currentTaskLabel.text = cell.titleLabel.text;
+    self.currentTaskLabel.text = [(CustomCell*)[tableView cellForRowAtIndexPath:indexPath] titleLabel].text;
     NSLog(@"Select row number %li",(long)indexPath.row);
-    
-    self.popUpVC.textInfoTextView.text = cell.additionalInfo;
-    NSLog(@"opopopop %@",self.popUpVC.textInfoTextView.text);
-
+    self.popUpVC.textInfoTextView.text = [(CustomCell*)[tableView cellForRowAtIndexPath:indexPath] additionalInfo];
+    NSLog(@"popUp Text %@",self.popUpVC.textInfoTextView.text);
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

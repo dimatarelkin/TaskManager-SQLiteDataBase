@@ -29,6 +29,7 @@
     self = [super init];
     if (self) {
         [self dataBaseType:dbType];
+        self.type = dbType;
         
     }
     return self;
@@ -37,27 +38,17 @@
 
 
 -(void)dataBaseType:(DataBaseType)dbType {
-    switch (dbType) {
-        case SQLiteType:
-            [self createSQLiteManager];
-            break;
-        case CoreDataType:
-            [self createCoreDataManager];
-            break;
-        default:
-            break;
-    }
+    [self createSQLiteManager];
+    [self createCoreDataManager];
 }
 
 
 -(void)createSQLiteManager {
     _sqliteManager  = [[DBManager alloc] initWithDataBaseFileName:@"tasksDB.db"];
-    self.type = SQLiteType;
 }
 
 -(void)createCoreDataManager {
      _coreDataManager = [[CoreDataManager alloc] init];
-    self.type = CoreDataType;
 }
 
 

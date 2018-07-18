@@ -25,20 +25,22 @@
   
     //popUpView
     self.popUpView.layer.cornerRadius = 30;
-    self.popUpView.layer.borderWidth =3;
+    self.popUpView.layer.borderWidth = 1;
     self.popUpView.layer.borderColor = UIColor.darkGrayColor.CGColor;
     self.addInfoLabel.layer.cornerRadius = 30;
     
     //buttons
     self.cancelButton.titleLabel.textColor = UIColor.whiteColor;
     self.cancelButton.layer.cornerRadius = 30;
-    self.cancelButton.layer.borderWidth = 3;
+    self.cancelButton.layer.borderWidth = 1;
     self.cancelButton.layer.borderColor = UIColor.darkGrayColor.CGColor;
     
     UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDown:)];
     swipe.direction = UISwipeGestureRecognizerDirectionDown;
     [self.view addGestureRecognizer:swipe];
 }
+
+
 
 #pragma mark - Actions
 - (IBAction)cancelActionHandler:(id)sender {

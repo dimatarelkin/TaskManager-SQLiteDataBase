@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DBManager.h"
 #import "ManagerLayerForCoreDataAndSQLite.h"
 
 
@@ -15,10 +14,9 @@
 -(void)editngInfoWasFinished;
 @end
 
-@interface EditIInfoViewController : UIViewController <UITextFieldDelegate>
-@property (strong, nonatomic) ManagerLayerForCoreDataAndSQLite* mainManager;
+@interface EditIInfoViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate>
 
-@property (strong, nonatomic) DBManager * dbManager;
+@property (strong, nonatomic) ManagerLayerForCoreDataAndSQLite* mainManager;
 @property (weak, nonatomic) id<EditInfoViewControllerDelegate> delegate;
 @property (nonatomic, assign) int recordIDToEdit;
 

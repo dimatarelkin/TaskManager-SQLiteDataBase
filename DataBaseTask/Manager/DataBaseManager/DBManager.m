@@ -142,6 +142,7 @@ static NSString * const kColumnDate     = @"date";
                         if (self.arrColumnNames.count != totalColumns ) {
                             dbAsChars = (char *)sqlite3_column_name(compiledStatement, i);
                             [self.arrColumnNames addObject:[NSString stringWithUTF8String:dbAsChars]];
+                            NSLog(@"add Column with name -%@ ",[NSString stringWithUTF8String:dbAsChars]);
                         }
                     }
                     
@@ -160,7 +161,7 @@ static NSString * const kColumnDate     = @"date";
                     //keep the affected rows
                     self.affectedRows = sqlite3_changes(sqlite3dataBase);
                     
-                    //keep the last inseted row ID
+                    //keep the last inserted row ID
                     self.lastInsertedRowID = sqlite3_last_insert_rowid(sqlite3dataBase);
                 } else {
                     NSLog(@"DB Error: %s",sqlite3_errmsg(sqlite3dataBase));
@@ -187,7 +188,7 @@ static NSString * const kColumnDate     = @"date";
     [self runQuery:[query UTF8String] isQueryExecutable:NO];
     
     //return the loaded results
-    NSLog(@"%@",[self.arrResults componentsJoinedByString:@"-"]);
+    NSLog(@"Arr results %@",[self.arrResults componentsJoinedByString:@"-"]);
     return (NSArray *)self.arrResults;
 }
 
@@ -225,22 +226,54 @@ static NSString * const kColumnDate     = @"date";
     NSLog(@"Delete record Query");
 }
 
+
+
 - (NSArray *)fetchAllDataTaskObjects {
     NSArray* allTasks;
+    NSMutableArray<TaskObject*>* arrayOfTasks = [NSMutableArray array];
+    
     NSString* loadDataQuery =  [NSString stringWithFormat:@"select * from %@;",kTableTaskName];
     allTasks = [self loadDataFromDB:loadDataQuery];
+    NSLog(@"all tasks %@" , [allTasks componentsJoinedByString:@"-"]);
+    
+    for (NSArray* fieldsOfTask in allTasks ) {
+        TaskObject* task = [[TaskObject alloc] init];
+        task.iD                  = [fieldsOfTask objectAtIndex:0];
+        task.taskTitle           = [fieldsOfTask objectAtIndex:1];
+        task.taskAdditionalInfo  = [fieldsOfTask objectAtIndex:2];
+        task.taskPriority        = (NSNumber*)[fieldsOfTask objectAtIndex:3];
+        NSNumber* numberWithDate = (NSNumber*)[fieldsOfTask objectAtIndex:4];
+        task.taskDate            = [NSDate dateWithTimeIntervalSince1970:[numberWithDate doubleValue]];
+        
+        [arrayOfTasks addObject:task];
+    }
+   
     NSLog(@"Fetch All Data Query");
-    return allTasks;
+    return arrayOfTasks;
 }
 
+
 - (TaskObject *)fetchTaskObjectWithID:(NSNumber *)iD {
+    NSString* query = [NSString stringWithFormat:@"select * from %@ where %@ = %li",
+                       kTableTaskName,
+                       kColumnID,
+                       (long)[iD integerValue]];
+    
+    NSArray* objectWithFields = [self loadDataFromDB:query];
+    
     TaskObject * task = [[TaskObject alloc] init];
     
-#warning FETCH Record SQLite
+    task.iD                  = [[objectWithFields objectAtIndex:0] objectAtIndex:0];
+    task.taskTitle           = [[objectWithFields objectAtIndex:0] objectAtIndex:1];
+    task.taskAdditionalInfo  = [[objectWithFields objectAtIndex:0] objectAtIndex:2];
+    task.taskPriority        = [[objectWithFields objectAtIndex:0] objectAtIndex:3];
+    NSNumber* numberWithDate = (NSNumber*)[[objectWithFields objectAtIndex:0] objectAtIndex:4];
+    task.taskDate            = [NSDate dateWithTimeIntervalSince1970:[numberWithDate doubleValue]];
     
     NSLog(@"Fetch record Query");
     return task;
 }
+
 
 - (void)updateData:(TaskObject *)data {
     //update

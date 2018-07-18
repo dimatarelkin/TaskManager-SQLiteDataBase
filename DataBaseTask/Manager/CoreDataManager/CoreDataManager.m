@@ -13,6 +13,11 @@
 
 static NSString * const kCoreDataFileName = @"CoreDataTest";
 
+@interface CoreDataManager ()
+- (void)saveContext;
+@end
+
+
 
 @implementation CoreDataManager
 
@@ -86,6 +91,7 @@ static NSString * const kCoreDataFileName = @"CoreDataTest";
         }
     }
     [self saveContext];
+    NSLog(@"Task have been updated");
 }
 
 

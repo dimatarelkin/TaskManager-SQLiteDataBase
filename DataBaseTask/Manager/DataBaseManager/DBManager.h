@@ -17,7 +17,4 @@
 
 - (instancetype)initWithDataBaseFileName:(NSString*)dbFilename;
 
--(NSArray*)loadDataFromDB:(NSString*)query;
--(void)executeQuery:(NSString*)query;
-
 @end
