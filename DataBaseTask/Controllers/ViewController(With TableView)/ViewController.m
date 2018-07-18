@@ -15,8 +15,7 @@
 
 @interface ViewController ()<UITableViewDelegate, UITableViewDataSource>
 
-#warning TableView DATA MANAGAER
-//layerManager
+//mainManager
 @property (strong, nonatomic) ManagerLayerForCoreDataAndSQLite* mainManager;
 
 //dataSource
@@ -224,7 +223,8 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
     // Get the record ID of the selected name and set it to the recordIDToEdit property
-    self.recordIDToEdit = [[[self.dataSourceArrayOfTasks objectAtIndex:indexPath.row] objectAtIndex:0] intValue];
+    TaskObject* task = [self.dataSourceArrayOfTasks objectAtIndex:indexPath.row];
+    self.recordIDToEdit = [task.iD intValue];
     
     //perform the segue
     [self performSegueWithIdentifier:segueIdentifierEditInfo sender:self];

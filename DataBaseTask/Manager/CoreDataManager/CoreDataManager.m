@@ -60,7 +60,7 @@ static NSString * const kCoreDataFileName = @"CoreDataTest";
 #pragma mark - ManagerProtocol Methods
 -(void)addData:(TaskObject *)data {
 
-        NSEntityDescription *entityDescription =[NSEntityDescription entityForName:kTaskEntityName inManagedObjectContext:self.persistentContainer.viewContext];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:kTaskEntityName inManagedObjectContext:self.persistentContainer.viewContext];
     
         if (!entityDescription) {
             NSLog(@"could not find entity description");
@@ -79,7 +79,9 @@ static NSString * const kCoreDataFileName = @"CoreDataTest";
 
 
 -(void)updateData:(TaskObject*)data {
-    NSArray* results = [self fetchAllDataTaskObjects];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:kTaskEntityName];
+    NSArray* results;
+    results = [self.persistentContainer.viewContext executeFetchRequest:fetchRequest error:nil];
     
     for ( Tasks* manageObject in results) {
         if ([data.iD integerValue] == [manageObject.iD integerValue]) {
@@ -98,7 +100,9 @@ static NSString * const kCoreDataFileName = @"CoreDataTest";
 
 
 -(void)deleteData:(TaskObject*)data {
-    NSArray* results = [self fetchAllDataTaskObjects];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:kTaskEntityName];
+    NSArray* results;
+    results = [self.persistentContainer.viewContext executeFetchRequest:fetchRequest error:nil];
     
     for (Tasks* managedObject in results) {
         if ([data.iD integerValue] == [managedObject.iD integerValue]) {
@@ -114,49 +118,71 @@ static NSString * const kCoreDataFileName = @"CoreDataTest";
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:kTaskEntityName];
     NSArray* results;
+    NSMutableArray* tasks = [NSMutableArray array];
     
     if (!fetchRequest) {
         NSLog(@"error with fetch request");
     } else {
         results = [self.persistentContainer.viewContext executeFetchRequest:fetchRequest error:nil];
-        if (results.count == 0) {
+        
+        for (Tasks *manageObject in results) {
+            TaskObject* task = [[TaskObject alloc] init];
+            task.iD = manageObject.iD;
+            task.taskTitle = manageObject.taskTitle;
+            task.taskAdditionalInfo = manageObject.taskAdditionalInfo;
+            task.taskPriority = manageObject.taskPriority;
+            task.taskDate = manageObject.taskDate;
+        
+            [tasks addObject:task];
+        }
+        
+        if (tasks.count == 0) {
             NSLog(@"Context is empty");
-        }else {
+        } else {
             NSLog(@"All Tasks have been fetched");
+            NSLog(@"fetch %@",[tasks componentsJoinedByString:@"-"]);
         }
     }
-    return results;
+    return tasks;
 }
 
 
 
 -(TaskObject*)fetchTaskObjectWithID:(NSNumber*)iD {
     
-    TaskObject * task = [[TaskObject alloc] init];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:kTaskEntityName];
-    NSArray* allTasks;
     
-    if (!fetchRequest) {
-        NSLog(@"error with fetch request");
-    } else {
-        
-        allTasks = [self.persistentContainer.viewContext executeFetchRequest:fetchRequest error:nil];
-        
-        if (allTasks.count == 0) {
-            NSLog(@"Context is empty");
-            
-        } else {
-            for (Tasks *manageObject in allTasks) {
-                
-                if ([iD integerValue] == [manageObject.iD integerValue]) {
-                    task.iD = manageObject.iD;
-                    task.taskTitle = manageObject.taskTitle;
-                    task.taskAdditionalInfo = manageObject.taskAdditionalInfo;
-                    task.taskPriority = manageObject.taskPriority;
-                    task.taskDate = manageObject.taskDate;
-                    NSLog(@"Task was fetched");
-                }
-            }
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:kTaskEntityName];
+//    NSArray* allTasks;
+//
+//    if (!fetchRequest) {
+//        NSLog(@"error with fetch request");
+//    } else {
+//
+//        allTasks = [self.persistentContainer.viewContext executeFetchRequest:fetchRequest error:nil];
+//
+//        if (allTasks.count == 0) {
+//            NSLog(@"Context is empty");
+//
+//        } else {
+//            for (Tasks *manageObject in allTasks) {
+//
+//                if ([iD integerValue] == [manageObject.iD integerValue]) {
+//                    task.iD = manageObject.iD;
+//                    task.taskTitle = manageObject.taskTitle;
+//                    task.taskAdditionalInfo = manageObject.taskAdditionalInfo;
+//                    task.taskPriority = manageObject.taskPriority;
+//                    task.taskDate = manageObject.taskDate;
+//                    NSLog(@"Task was fetched");
+//                }
+//            }
+//        }
+//    }
+    
+    TaskObject * task = [[TaskObject alloc] init];
+    NSArray *tasks = [self fetchAllDataTaskObjects];
+    for (TaskObject* taskObj in tasks) {
+        if ([iD integerValue] == [taskObj.iD integerValue]) {
+            task = taskObj;
         }
     }
     return task;
