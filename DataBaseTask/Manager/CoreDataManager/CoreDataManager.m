@@ -12,18 +12,9 @@
 
 
 static NSString * const kCoreDataFileName = @"CoreDataTest";
-//entity name
-static NSString * const kTaskEntityName = @"Tasks";
-//Attributes
-static NSString * const kTaskAttributeTitle = @"taskTitle";
-static NSString * const kTaskAttributePriority = @"taskPriority";
-static NSString * const kTaskAttributeAdditionalInfo = @"taskAdditionalInfo";
-static NSString * const kTaskAttributeDate = @"taskDate";
 
 
 @implementation CoreDataManager
-
-
 
 #pragma mark - Core Data stack
 @synthesize persistentContainer = _persistentContainer;
@@ -51,7 +42,6 @@ static NSString * const kTaskAttributeDate = @"taskDate";
 #pragma mark - Core Data Saving support
 - (void)saveContext {
     NSManagedObjectContext *context = self.persistentContainer.viewContext;
-    
     NSError *error = nil;
     
     if ([context hasChanges] && ![context save:&error]) {
@@ -63,7 +53,7 @@ static NSString * const kTaskAttributeDate = @"taskDate";
 
 
 #pragma mark - ManagerProtocol Methods
--(void)addDataWith:(TaskObject *)data {
+-(void)addData:(TaskObject *)data {
 
         NSEntityDescription *entityDescription =[NSEntityDescription entityForName:kTaskEntityName inManagedObjectContext:self.persistentContainer.viewContext];
     
@@ -73,7 +63,6 @@ static NSString * const kTaskAttributeDate = @"taskDate";
         }
     
         Tasks* manageObject = [[Tasks alloc] initWithEntity:entityDescription insertIntoManagedObjectContext:self.persistentContainer.viewContext];
-    
         manageObject.iD = data.iD;
         manageObject.taskTitle = data.taskTitle;
         manageObject.taskAdditionalInfo = data.taskAdditionalInfo;
@@ -84,17 +73,34 @@ static NSString * const kTaskAttributeDate = @"taskDate";
 }
 
 
--(void)updateData:(NSArray*)data {
+-(void)updateData:(TaskObject*)data {
+    NSArray* results = [self fetchAllDataTaskObjects];
     
+    for ( Tasks* manageObject in results) {
+        if ([data.iD integerValue] == [manageObject.iD integerValue]) {
+            manageObject.iD = data.iD;
+            manageObject.taskTitle = data.taskTitle;
+            manageObject.taskAdditionalInfo = data.taskAdditionalInfo;
+            manageObject.taskPriority = data.taskPriority;
+            manageObject.taskDate = data.taskDate;
+        }
+    }
+    [self saveContext];
 }
 
+
+
+
 -(void)deleteData:(TaskObject*)data {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:kTaskEntityName];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"iD == @%", data.iD];
-    [fetchRequest setPredicate:predicate];
+    NSArray* results = [self fetchAllDataTaskObjects];
     
-    [self.persistentContainer.viewContext executeFetchRequest:fetchRequest error:nil];
-    [self.persistentContainer.viewContext deleteObject:data];
+    for (Tasks* managedObject in results) {
+        if ([data.iD integerValue] == [managedObject.iD integerValue]) {
+            [self.persistentContainer.viewContext deleteObject:managedObject];
+            [self saveContext];
+            NSLog(@"Task have been deleted");
+        }
+    }
 }
 
 
@@ -106,26 +112,11 @@ static NSString * const kTaskAttributeDate = @"taskDate";
     if (!fetchRequest) {
         NSLog(@"error with fetch request");
     } else {
-        
         results = [self.persistentContainer.viewContext executeFetchRequest:fetchRequest error:nil];
-        
         if (results.count == 0) {
             NSLog(@"Context is empty");
-            
-        } else {
-            
-            for (Tasks *manageObject in results) {
-                
-                NSNumber *iD = manageObject.iD;
-                NSString *title = manageObject.taskTitle;
-                NSNumber *priority = manageObject.taskPriority;
-                NSString *addInfo = manageObject.taskAdditionalInfo;
-                NSDate *date = manageObject.taskDate;
-                
-                NSLog(@"\n ID - %@\n task title - %@\n priority - %@\n addInfo - %@\n date - %@", iD, title, priority, addInfo, [date description]);
-                [manageObject.managedObjectContext deleteObject:manageObject];
-                [self saveContext];
-            }
+        }else {
+            NSLog(@"All Tasks have been fetched");
         }
     }
     return results;
@@ -157,12 +148,38 @@ static NSString * const kTaskAttributeDate = @"taskDate";
                     task.taskAdditionalInfo = manageObject.taskAdditionalInfo;
                     task.taskPriority = manageObject.taskPriority;
                     task.taskDate = manageObject.taskDate;
+                    NSLog(@"Task was fetched");
                 }
             }
         }
     }
     return task;
 }
+
+
+
+
+- (void)deleteAllData {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:kTaskEntityName];
+    NSArray* results;
+    
+    if (!fetchRequest) {
+        NSLog(@"error with fetch request");
+    } else {
+        results = [self.persistentContainer.viewContext executeFetchRequest:fetchRequest error:nil];
+        if (results.count == 0) {
+            NSLog(@"Context is empty");
+        } else {
+            for (Tasks *manageObject in results) {
+                //cleaning context
+                [manageObject.managedObjectContext deleteObject:manageObject];
+                [self saveContext];
+                NSLog(@"Context have been cleaned");
+            }
+        }
+    }
+}
+
 
 
 @end

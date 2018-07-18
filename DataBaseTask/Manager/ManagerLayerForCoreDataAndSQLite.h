@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TaskObject.h"
 
 
 typedef enum {
@@ -16,22 +17,23 @@ typedef enum {
 
 
 @protocol ManagerDataBaseProtocol <NSObject>
--(void)addData:(NSArray*)data;
--(void)updateData:(NSArray*)data;
--(void)deleteData:(NSArray*)data;
+
+-(void)addData:(TaskObject*)data;
+-(void)updateData:(TaskObject*)data;
+-(void)deleteData:(TaskObject*)data;
+-(TaskObject*)fetchTaskObjectWithID:(NSNumber*)iD;
 -(NSArray*)fetchAllDataTaskObjects;
+-(void)deleteAllData;
+
 @end
 
 
-@interface ManagerLayerForCoreDataAndSQLite : NSObject
+
+@interface ManagerLayerForCoreDataAndSQLite : NSObject <ManagerDataBaseProtocol>
 
 @property (assign, nonatomic) DataBaseType type;
--(instancetype)initWithDataBaseType:(DataBaseType)dbType;
 
--(void)addData:(NSArray*)data;
--(void)insertData:(NSArray*)data;
--(void)deleteData:(NSArray*)data;
--(NSArray*)fetchDataFromDataBase;
+-(instancetype)initWithDataBaseType:(DataBaseType)dbType;
 
 @end
 

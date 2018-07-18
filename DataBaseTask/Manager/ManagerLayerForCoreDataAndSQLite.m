@@ -16,13 +16,7 @@
 @property (strong, nonatomic) DBManager *sqliteManager;
 @property (strong, nonatomic) CoreDataManager *coreDataManager;
 
-
-@property (strong, nonatomic) NSString *addQuery;
-@property (strong, nonatomic) NSString *deleteQuery;
-@property (strong, nonatomic) NSString *selectQuery;
-
 @end
-
 
 
 
@@ -68,31 +62,53 @@
 
 
 
+
+#pragma mark - Operations
+
 -(void)addData:(TaskObject*)data  {
     [_sqliteManager addData:data];
     [_coreDataManager addData:data];
 }
 
--(void)insertData:(NSArray*)data {
+- (void)updateData:(TaskObject *)data {
     [_sqliteManager updateData:data];
     [_coreDataManager updateData:data];
 }
 
--(void)deleteData:(NSArray*)data {
+-(void)deleteData:(TaskObject*)data {
     [_sqliteManager deleteData:data];
     [_coreDataManager deleteData:data];
 }
 
 
--(NSArray*)fetchDataFromDataBase{
-    NSArray* results;
+-(TaskObject*)fetchTaskObjectWithID:(NSNumber*)iD {
+    TaskObject *task = [[TaskObject alloc] init];
     
     if (self.type == SQLiteType) {
-        results = [NSArray arrayWithArray:[_sqliteManager fetchAllDataTaskObjects]];
+        task = [_sqliteManager fetchTaskObjectWithID:iD];
     } else {
-        results = [NSArray arrayWithArray:[_coreDataManager fetchAllDataTaskObjects]];
+        task = [_coreDataManager fetchTaskObjectWithID:iD];
     }
-    return results;
+    return task;
+}
+
+
+- (void)deleteAllData {
+    [_sqliteManager deleteAllData];
+    [_coreDataManager deleteAllData];
+}
+
+
+
+- (NSArray *)fetchAllDataTaskObjects {
+    NSArray* allTasks = [NSArray array];
+    
+    if (self.type == SQLiteType) {
+        allTasks = [_sqliteManager fetchAllDataTaskObjects];
+    } else {
+        allTasks = [_coreDataManager fetchAllDataTaskObjects];
+    }
+    return allTasks;
 }
 
 

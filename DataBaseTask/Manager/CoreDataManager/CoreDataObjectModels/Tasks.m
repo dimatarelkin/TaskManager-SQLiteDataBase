@@ -8,19 +8,6 @@
 
 #import "Tasks.h"
 
-
-
-//entity name
-static NSString * const kTaskEntityName = @"Tasks";
-//Attributes
-static NSString * const kTaskID = @"iD";
-static NSString * const kTaskAttributeTitle = @"taskTitle";
-static NSString * const kTaskAttributePriority = @"taskPriority";
-static NSString * const kTaskAttributeAdditionalInfo = @"taskAdditionalInfo";
-static NSString * const kTaskAttributeDate = @"taskDate";
-
-
-
 @implementation Tasks
 
 @dynamic iD;

@@ -153,7 +153,7 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 #warning from db to tableView
     //dequeue the cell
     CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    
+    NSInteger indexOfTaskID = [self.dbManager.arrColumnNames indexOfObject:@"taskID"];
     NSInteger indexOfTaskTitle = [self.dbManager.arrColumnNames indexOfObject:@"taskTitle"];
     NSInteger indexOfPriority = [self.dbManager.arrColumnNames indexOfObject:@"taskPriority"];
     NSInteger indexOfAdditionalInfo = [self.dbManager.arrColumnNames indexOfObject:@"taskAdditionalInfo"];

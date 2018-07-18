@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		322829F020FE80340008B473 /* TaskObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 322829EE20FE80340008B473 /* TaskObject.m */; };
+		322829F420FE806A0008B473 /* Tasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 322829F320FE806A0008B473 /* Tasks.m */; };
 		62315F4E20FCB71A00064530 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62315F4D20FCB71A00064530 /* CoreDataManager.m */; };
 		62315F5220FCB7A500064530 /* ManagerLayerForCoreDataAndSQLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 62315F5120FCB7A500064530 /* ManagerLayerForCoreDataAndSQLite.m */; };
 		628F648B20F3438800C28BA1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 628F648A20F3438800C28BA1 /* AppDelegate.m */; };
@@ -21,13 +23,15 @@
 		628F64B920F4BE6400C28BA1 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 628F64B820F4BE6400C28BA1 /* CustomCell.m */; };
 		628F64BB20F4F2F400C28BA1 /* tasksDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 628F64BA20F4F2F400C28BA1 /* tasksDB.db */; };
 		628F64C920F6188000C28BA1 /* PopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 628F64C820F6188000C28BA1 /* PopUpViewController.m */; };
-		62CA351020FDD24600CAF132 /* Tasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CA350F20FDD24600CAF132 /* Tasks.m */; };
-		62CA351720FE113500CAF132 /* TaskObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 62CA351620FE113500CAF132 /* TaskObject.m */; };
 		62FF994E20FC93F80038F931 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FF994D20FC93F80038F931 /* CoreData.framework */; };
 		62FF995120FC94330038F931 /* CoreDataTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 62FF994F20FC94330038F931 /* CoreDataTest.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		322829EE20FE80340008B473 /* TaskObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskObject.m; sourceTree = "<group>"; };
+		322829EF20FE80340008B473 /* TaskObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskObject.h; sourceTree = "<group>"; };
+		322829F220FE806A0008B473 /* Tasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tasks.h; sourceTree = "<group>"; };
+		322829F320FE806A0008B473 /* Tasks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tasks.m; sourceTree = "<group>"; };
 		62315F4C20FCB71A00064530 /* CoreDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
 		62315F4D20FCB71A00064530 /* CoreDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		62315F5020FCB7A500064530 /* ManagerLayerForCoreDataAndSQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ManagerLayerForCoreDataAndSQLite.h; sourceTree = "<group>"; };
@@ -52,10 +56,6 @@
 		628F64BA20F4F2F400C28BA1 /* tasksDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = tasksDB.db; sourceTree = "<group>"; };
 		628F64C720F6188000C28BA1 /* PopUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopUpViewController.h; sourceTree = "<group>"; };
 		628F64C820F6188000C28BA1 /* PopUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopUpViewController.m; sourceTree = "<group>"; };
-		62CA350E20FDD24600CAF132 /* Tasks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tasks.h; sourceTree = "<group>"; };
-		62CA350F20FDD24600CAF132 /* Tasks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tasks.m; sourceTree = "<group>"; };
-		62CA351520FE113500CAF132 /* TaskObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskObject.h; sourceTree = "<group>"; };
-		62CA351620FE113500CAF132 /* TaskObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskObject.m; sourceTree = "<group>"; };
 		62FF994D20FC93F80038F931 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		62FF995020FC94330038F931 /* taskModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = taskModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,12 +73,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		322829ED20FE80340008B473 /* ObjectWithData */ = {
+			isa = PBXGroup;
+			children = (
+				322829EF20FE80340008B473 /* TaskObject.h */,
+				322829EE20FE80340008B473 /* TaskObject.m */,
+			);
+			path = ObjectWithData;
+			sourceTree = "<group>";
+		};
+		322829F120FE806A0008B473 /* CoreDataObjectModels */ = {
+			isa = PBXGroup;
+			children = (
+				322829F220FE806A0008B473 /* Tasks.h */,
+				322829F320FE806A0008B473 /* Tasks.m */,
+			);
+			path = CoreDataObjectModels;
+			sourceTree = "<group>";
+		};
+		322829F520FE81230008B473 /* CustomCell */ = {
+			isa = PBXGroup;
+			children = (
+				628F64B720F4BE6400C28BA1 /* CustomCell.h */,
+				628F64B820F4BE6400C28BA1 /* CustomCell.m */,
+			);
+			path = CustomCell;
+			sourceTree = "<group>";
+		};
 		62315F4F20FCB73800064530 /* CoreDataManager */ = {
 			isa = PBXGroup;
 			children = (
 				62315F4C20FCB71A00064530 /* CoreDataManager.h */,
 				62315F4D20FCB71A00064530 /* CoreDataManager.m */,
-				62CA351120FDD31E00CAF132 /* CoreDataObjectModels */,
+				322829F120FE806A0008B473 /* CoreDataObjectModels */,
+				322829ED20FE80340008B473 /* ObjectWithData */,
 			);
 			path = CoreDataManager;
 			sourceTree = "<group>";
@@ -90,7 +118,6 @@
 				62315F5120FCB7A500064530 /* ManagerLayerForCoreDataAndSQLite.m */,
 				628F64AE20F39F1100C28BA1 /* DataBaseManager */,
 				62315F4F20FCB73800064530 /* CoreDataManager */,
-				62CA351820FE114600CAF132 /* ObjectWithData */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -118,7 +145,7 @@
 				628F648920F3438800C28BA1 /* AppDelegate.h */,
 				628F648A20F3438800C28BA1 /* AppDelegate.m */,
 				628F64AD20F39EF000C28BA1 /* Controllers */,
-				628F64BF20F5FD4700C28BA1 /* Custom Cells */,
+				322829F520FE81230008B473 /* CustomCell */,
 				62315F5320FCB7AB00064530 /* Manager */,
 				628F648F20F3438800C28BA1 /* Main.storyboard */,
 				628F649220F3438900C28BA1 /* Assets.xcassets */,
@@ -159,16 +186,6 @@
 			path = DataBaseManager;
 			sourceTree = "<group>";
 		};
-		628F64BF20F5FD4700C28BA1 /* Custom Cells */ = {
-			isa = PBXGroup;
-			children = (
-				628F64B720F4BE6400C28BA1 /* CustomCell.h */,
-				628F64B820F4BE6400C28BA1 /* CustomCell.m */,
-			);
-			name = "Custom Cells";
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		628F64CA20F7662F00C28BA1 /* ViewController(With TableView) */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,24 +211,6 @@
 				628F64C820F6188000C28BA1 /* PopUpViewController.m */,
 			);
 			path = PopUpViewController;
-			sourceTree = "<group>";
-		};
-		62CA351120FDD31E00CAF132 /* CoreDataObjectModels */ = {
-			isa = PBXGroup;
-			children = (
-				62CA350E20FDD24600CAF132 /* Tasks.h */,
-				62CA350F20FDD24600CAF132 /* Tasks.m */,
-			);
-			path = CoreDataObjectModels;
-			sourceTree = "<group>";
-		};
-		62CA351820FE114600CAF132 /* ObjectWithData */ = {
-			isa = PBXGroup;
-			children = (
-				62CA351520FE113500CAF132 /* TaskObject.h */,
-				62CA351620FE113500CAF132 /* TaskObject.m */,
-			);
-			path = ObjectWithData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,18 +285,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				322829F420FE806A0008B473 /* Tasks.m in Sources */,
 				62315F5220FCB7A500064530 /* ManagerLayerForCoreDataAndSQLite.m in Sources */,
 				628F64AC20F3712C00C28BA1 /* EditIInfoViewController.m in Sources */,
 				628F648E20F3438800C28BA1 /* ViewController.m in Sources */,
 				62FF995120FC94330038F931 /* CoreDataTest.xcdatamodeld in Sources */,
 				62315F4E20FCB71A00064530 /* CoreDataManager.m in Sources */,
-				62CA351020FDD24600CAF132 /* Tasks.m in Sources */,
 				628F64B920F4BE6400C28BA1 /* CustomCell.m in Sources */,
 				628F64C920F6188000C28BA1 /* PopUpViewController.m in Sources */,
 				628F649920F3438900C28BA1 /* main.m in Sources */,
-				62CA351720FE113500CAF132 /* TaskObject.m in Sources */,
 				628F648B20F3438800C28BA1 /* AppDelegate.m in Sources */,
 				628F64A420F3440000C28BA1 /* DBManager.m in Sources */,
+				322829F020FE80340008B473 /* TaskObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

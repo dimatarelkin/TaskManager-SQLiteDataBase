@@ -9,6 +9,18 @@
 #import "DBManager.h"
 #import <sqlite3.h>
 
+
+
+//Table
+static NSString * const kTableTaskName  = @"Tasks";
+static NSString * const kColumnID       = @"taskID";
+static NSString * const kColumnTitle    = @"taskTitle";
+static NSString * const kColumnPriority = @"taskPriority";
+static NSString * const kColumnAddInfo  = @"taskAdditionalInfo";
+static NSString * const kColumnDate     = @"date";
+
+
+
 @interface DBManager ()
 @property (nonatomic, strong) NSString *documentDirectory;
 @property (nonatomic, strong) NSString *dataBaseFilename;
@@ -171,7 +183,6 @@
 #pragma mark - Public DB methods
 
 - (NSArray *)loadDataFromDB:(NSString *)query {
-    // Run the query and indicate that is not executable.
     // The query string is converted to a char* object.
     [self runQuery:[query UTF8String] isQueryExecutable:NO];
     
@@ -188,6 +199,60 @@
 
 
 
+#pragma mark - Operations
 
+- (void)addData:(TaskObject *)data {
+    NSString *query = [NSString stringWithFormat:@"insert into %@ values(null, '%@', '%@', %li, '%f')",
+            kTableTaskName,
+            data.taskTitle,
+            data.taskAdditionalInfo,
+            [data.taskPriority integerValue], [data.taskDate timeIntervalSince1970]];
+    
+    [self executeQuery:query];
+    NSLog(@"Add Query");
+}
+
+
+- (void)deleteAllData {
+    NSString *deleteAllTasksQeuery = [NSString stringWithFormat:@"delete * from %@",kTableTaskName];
+    [self executeQuery:deleteAllTasksQeuery];
+    NSLog(@"DeleteAllData Query");
+}
+
+- (void)deleteData:(TaskObject *)data {
+    NSString *deleteQeuery = [NSString stringWithFormat:@"delete from %@ where %@ = %li", kTableTaskName, kColumnID,(long)[data.iD integerValue]];
+    [self executeQuery:deleteQeuery];
+    NSLog(@"Delete record Query");
+}
+
+- (NSArray *)fetchAllDataTaskObjects {
+    NSArray* allTasks;
+    NSString* loadDataQuery =  [NSString stringWithFormat:@"select * from %@;",kTableTaskName];
+    allTasks = [self loadDataFromDB:loadDataQuery];
+    NSLog(@"Fetch All Data Query");
+    return allTasks;
+}
+
+- (TaskObject *)fetchTaskObjectWithID:(NSNumber *)iD {
+    TaskObject * task = [[TaskObject alloc] init];
+    
+#warning FETCH Record SQLite
+    
+    NSLog(@"Fetch record Query");
+    return task;
+}
+
+- (void)updateData:(TaskObject *)data {
+    //update
+    NSString *query = [NSString stringWithFormat:@"update %@ set %@ = '%@', %@ = '%@', %@ = %ld, %@ = '%f' where %@ = %li",
+           kTableTaskName,
+           kColumnTitle, data.taskTitle,
+           kColumnAddInfo, data.taskAdditionalInfo,
+           kColumnPriority, [data.taskPriority integerValue],
+           kColumnDate, [data.taskDate timeIntervalSince1970],
+           kColumnID, (long)[data.iD integerValue]];
+    [self executeQuery:query];
+    NSLog(@"Update Query");
+}
 
 @end

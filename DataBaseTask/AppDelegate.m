@@ -33,11 +33,21 @@
     task.taskPriority = @1;
     task.taskDate = [NSDate date];
     
+    TaskObject* task2 = [[TaskObject alloc] init];
+    task2.iD = @2;
+    task2.taskTitle = @"Some Title";
+    task2.taskAdditionalInfo = @"task addd info";
+    task2.taskPriority = @1;
+    task2.taskDate = [NSDate date];
+    
     CoreDataManager *cm = [[CoreDataManager alloc] init];
-    [cm addDataWith:task];
+//    [cm addData:task];
+//    [cm addData:task2];
+//    [cm deleteData:task];
     
     
-    TaskObject * fetchedTask = [cm fetchTaskObjectWithID:@1];
+    
+    TaskObject * fetchedTask = [cm fetchTaskObjectWithID:@2];
     NSLog(@"%@",[fetchedTask description]);
     return YES;
 }
