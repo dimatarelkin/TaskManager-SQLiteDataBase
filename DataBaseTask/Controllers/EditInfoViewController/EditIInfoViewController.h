@@ -18,13 +18,13 @@
 
 @property (strong, nonatomic) ManagerLayerForCoreDataAndSQLite* mainManager;
 @property (weak, nonatomic) id<EditInfoViewControllerDelegate> delegate;
-@property (nonatomic, assign) int recordIDToEdit;
+@property (nonatomic, assign) NSInteger recordIDToEdit;
 
 @property (weak, nonatomic) IBOutlet UITextField *titleOfTaskTextField;
 @property (weak, nonatomic) IBOutlet UITextView *additionalInfoTextView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *priorityControl;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 
-- (IBAction)saveInfo:(id)sender;
+- (IBAction)saveDataAction:(id)sender;
 -(void)loadInfoToEdit;
 @end

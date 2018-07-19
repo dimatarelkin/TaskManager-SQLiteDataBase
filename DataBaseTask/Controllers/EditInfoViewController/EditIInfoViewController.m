@@ -11,19 +11,21 @@
 
 
 
-
-
 @interface EditIInfoViewController ()
 
 @end
 
 
+static NSInteger const kNewRecordID = -1;
+
+
 
 @implementation EditIInfoViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.navigationController.navigationBar.tintColor = self.navigationItem.rightBarButtonItem.tintColor;
+-(void)loadView {
+    [super loadView];
+    self.navigationController.navigationBar.tintColor =
+    self.navigationItem.rightBarButtonItem.tintColor;
     self.titleOfTaskTextField.delegate = self;
     self.additionalInfoTextView.delegate = self;
     
@@ -39,17 +41,27 @@
     
     //customize date picker
     [self.datePicker setValue:UIColor.whiteColor forKey:@"textColor"];
-   
-    //create main manager
     
+    //create main manager
     [self createMainManagerWithIndexType:0];
     
     // Check if should load specific record for editing.
-    if (self.recordIDToEdit != -1) {
+    if (self.recordIDToEdit != kNewRecordID) {
         // Load the record with the specific ID from the database.
         [self loadInfoToEdit];
     }
 }
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+     [self.titleOfTaskTextField becomeFirstResponder];
+}
+
+
+#pragma mark - Data Operations
 
 -(void)createMainManagerWithIndexType:(NSInteger)type {
     if (type == 0) {
@@ -60,21 +72,18 @@
 }
 
 
-- (IBAction)saveInfo:(id)sender {
+- (IBAction)saveDataAction:(id)sender {
     
-    [self.datePicker.date timeIntervalSince1970];
-    
-    
-    if (self.recordIDToEdit == -1) {
+    if (self.recordIDToEdit == kNewRecordID) {
         TaskObject* task = [[TaskObject alloc] initWithId];
         NSLog(@"task ID = %@",task.iD);
-        [self settingDataToTask:task];
+        [self setDataToTask:task];
         [self.mainManager addData:task];
         
     } else {
         TaskObject* task = [[TaskObject alloc] init];
         task.iD = [NSNumber numberWithInteger:self.recordIDToEdit];
-        [self settingDataToTask:task];
+        [self setDataToTask:task];
         [self.mainManager updateData:task];
     }
 
@@ -85,7 +94,7 @@
 }
 
 
--(void)settingDataToTask:(TaskObject*)task {
+-(void)setDataToTask:(TaskObject*)task {
     task.taskTitle          = self.titleOfTaskTextField.text;
     task.taskAdditionalInfo = self.additionalInfoTextView.text;
     task.taskPriority       = [NSNumber numberWithInteger: self.priorityControl.selectedSegmentIndex];
@@ -103,20 +112,17 @@
 
 
 
-
-
-#pragma mark - TextFiledDelegate
+#pragma mark - Actions With Keyboard
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    NSLog(@"enter");
+    [self.additionalInfoTextView becomeFirstResponder];
+    NSLog(@"next");
     return YES;
 }
 
-- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
-    [textView resignFirstResponder];
-    NSLog(@"text view enter");
-    return YES;
-}
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.additionalInfoTextView resignFirstResponder];
+}
 @end

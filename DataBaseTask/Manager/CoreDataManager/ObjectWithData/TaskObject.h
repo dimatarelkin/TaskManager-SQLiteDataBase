@@ -10,11 +10,11 @@
 
 @interface TaskObject : NSObject
 
-@property (assign, nonatomic) NSNumber* iD;
+@property (assign, nonatomic) NSNumber *iD;
 @property (strong, nonatomic) NSString *taskTitle;
 @property (strong, nonatomic) NSString *taskAdditionalInfo;
-@property (assign, nonatomic) NSNumber* taskPriority;
-@property (strong, nonatomic) NSDate *taskDate;
+@property (assign, nonatomic) NSNumber *taskPriority;
+@property (strong, nonatomic) NSDate   *taskDate;
 
 - (instancetype)initWithId;
 @end

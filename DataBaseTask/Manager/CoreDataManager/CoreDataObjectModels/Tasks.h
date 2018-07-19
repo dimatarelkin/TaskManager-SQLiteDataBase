@@ -20,10 +20,10 @@ static NSString * const kTaskAttributeDate           = @"taskDate";
 
 @interface Tasks : NSManagedObject
 
-@property (strong, nonatomic) NSNumber* iD;
+@property (strong, nonatomic) NSNumber *iD;
 @property (strong, nonatomic) NSString *taskTitle;
 @property (strong, nonatomic) NSString *taskAdditionalInfo;
-@property (strong, nonatomic) NSNumber* taskPriority;
-@property (strong, nonatomic) NSDate *taskDate;
+@property (strong, nonatomic) NSNumber *taskPriority;
+@property (strong, nonatomic) NSDate   *taskDate;
 
 @end

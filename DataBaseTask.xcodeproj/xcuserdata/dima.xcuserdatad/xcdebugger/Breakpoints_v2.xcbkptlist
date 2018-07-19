@@ -42,23 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DataBaseTask/Controllers/ViewController(With TableView)/ViewController.m"
-            timestampString = "553630658.065419"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "-addNewRecord:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DataBaseTask/Controllers/ViewController(With TableView)/ViewController.m"
-            timestampString = "553630658.0655169"
+            timestampString = "553726512.997584"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "224"
@@ -74,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DataBaseTask/Controllers/ViewController(With TableView)/ViewController.m"
-            timestampString = "553630658.065599"
+            timestampString = "553726512.997674"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "230"
@@ -90,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DataBaseTask/Controllers/EditInfoViewController/EditIInfoViewController.m"
-            timestampString = "553627413.3403879"
+            timestampString = "553726512.9977289"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "-loadInfoToEdit"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "-setDataToTask:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

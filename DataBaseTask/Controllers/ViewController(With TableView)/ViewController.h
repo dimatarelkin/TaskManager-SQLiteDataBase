@@ -14,9 +14,9 @@
 
 
 @interface ViewController : UIViewController <EditInfoViewControllerDelegate>
+
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOfTasks;
 @property (weak, nonatomic) IBOutlet UILabel *currentTaskLabel;
-
 @property (weak, nonatomic) IBOutlet UISegmentedControl *storageTypeControl;
 
 - (IBAction)storageAction:(UISegmentedControl*)sender;

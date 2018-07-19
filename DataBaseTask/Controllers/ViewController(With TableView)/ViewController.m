@@ -27,16 +27,17 @@
 @property (strong, nonatomic) PopUpViewController* popUpVC;
 
 //data methods
--(void)loadData;
+-(void)loadDataFromDataBaseAndRefreshTable;
 
 @end
 
 
-static NSString * const kStorageState = @"storageTypeControl";
 
-static NSString* cellIdentifier = @"idCellIdentifier";
-static NSString* segueIdentifierEditInfo = @"idSegueEditInfo";
-static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
+static NSInteger const kNewRecordID       = -1;
+static NSString * const kStorageState     = @"storageTypeControl";
+static NSString * cellIdentifier          = @"idCellIdentifier";
+static NSString * segueIdentifierEditInfo = @"idSegueEditInfo";
+static NSString * seguePopUpIdentidier    = @"showPopUpIdentifier";
 
 
 @implementation ViewController
@@ -57,13 +58,13 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
     [self loadStorageStateAndCreateDataBaseManager];
     
     //loading data from DB
-    [self loadData];
+    [self loadDataFromDataBaseAndRefreshTable];
     NSLog(@"Data Source %@",[self.dataSourceArrayOfTasks componentsJoinedByString:@" , "]);
 }
 
 
 
-#pragma mark Save UserDefaults
+#pragma mark Save And Load Storage State
 - (void)saveStorageState {
     NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
     [userDefault setInteger:self.storageTypeControl.selectedSegmentIndex forKey:kStorageState];
@@ -88,7 +89,7 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 
 
 - (IBAction)addNewRecord:(id)sender {
-    self.recordIDToEdit = -1;  // setting -1 value to the recordIDToEdit to add a new record
+    self.recordIDToEdit = kNewRecordID;
     [self performSegueWithIdentifier:segueIdentifierEditInfo sender:self];  //perform the segue
 }
 
@@ -96,7 +97,7 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 
 #pragma mark - Loading Data
 
-- (void)loadData {
+- (void)loadDataFromDataBaseAndRefreshTable {
     if (self.dataSourceArrayOfTasks!= nil) {
         self.dataSourceArrayOfTasks = nil;
     }
@@ -108,7 +109,7 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 #pragma mark - EditInfoViewControllerDelegate
 
 - (void)editngInfoWasFinished {
-   [self loadData];
+   [self loadDataFromDataBaseAndRefreshTable];
     NSLog(@"reload table with NEW DATASOURCE: \n%@ \nnumber of elements = %lu",
           [self.dataSourceArrayOfTasks componentsJoinedByString:@"\n"],
           [self.dataSourceArrayOfTasks count]);
@@ -131,7 +132,6 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
     }
     
 }
-
 
 
 
@@ -252,7 +252,7 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
                                           handler:^(UIContextualAction *  action,  UIView *  sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
                                               TaskObject* task = (TaskObject*)[self.dataSourceArrayOfTasks objectAtIndex:indexPath.row];
                                               [self.mainManager deleteData:task];
-                                              [self loadData];
+                                              [self loadDataFromDataBaseAndRefreshTable];
                                               completionHandler(YES);
                                           }];
     complete.backgroundColor = UIColor.orangeColor;

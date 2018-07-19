@@ -9,16 +9,17 @@
 #import "TaskObject.h"
 
 
-static NSString * const kTaskID = @"taskID";
+static NSString * const kTaskIncrementorID = @"taskID";
 
 @implementation TaskObject
 
 
 
-- (NSString *)description
-{
+- (NSString *)description {
     return [NSString stringWithFormat:@"\n ID - %@\n task title - %@\n priority - %@\n addInfo - %@\n date - %@",
-                                       self.iD, self.taskTitle, self.taskPriority, self.taskAdditionalInfo, [self.taskDate description]];
+                                     self.iD, self.taskTitle,
+                                     self.taskPriority, self.taskAdditionalInfo,
+                                    [self.taskDate description]];
 }
 
 
@@ -32,8 +33,8 @@ static NSString * const kTaskID = @"taskID";
 
 -(NSNumber*)newID {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSInteger current = [userDefaults integerForKey:kTaskID];
-    [userDefaults setInteger:current + 1 forKey:kTaskID];
+    NSInteger current = [userDefaults integerForKey:kTaskIncrementorID];
+    [userDefaults setInteger:current + 1 forKey:kTaskIncrementorID];
     [userDefaults synchronize];
     return [NSNumber numberWithInteger:current];
 }
