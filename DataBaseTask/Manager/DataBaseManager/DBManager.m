@@ -203,11 +203,13 @@ static NSString * const kColumnDate     = @"date";
 #pragma mark - Operations
 
 - (void)addData:(TaskObject *)data {
-    NSString *query = [NSString stringWithFormat:@"insert into %@ values(null, '%@', '%@', %li, '%f')",
+    NSString *query = [NSString stringWithFormat:@"insert into %@ values(%li, '%@', '%@', %li, '%f')",
             kTableTaskName,
+            [data.iD integerValue],
             data.taskTitle,
             data.taskAdditionalInfo,
-            [data.taskPriority integerValue], [data.taskDate timeIntervalSince1970]];
+            [data.taskPriority integerValue],
+            [data.taskDate timeIntervalSince1970]];
     
     [self executeQuery:query];
     NSLog(@"Add Query");

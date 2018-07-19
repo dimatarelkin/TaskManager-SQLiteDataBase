@@ -16,4 +16,5 @@
 @property (assign, nonatomic) NSNumber* taskPriority;
 @property (strong, nonatomic) NSDate *taskDate;
 
+- (instancetype)initWithId;
 @end

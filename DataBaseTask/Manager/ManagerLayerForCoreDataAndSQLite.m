@@ -92,7 +92,7 @@
 
 
 - (NSArray *)fetchAllDataTaskObjects {
-    NSArray* allTasks = [NSArray array];
+    NSArray* allTasks;
     
     if (self.type == SQLiteType) {
         allTasks = [_sqliteManager fetchAllDataTaskObjects];

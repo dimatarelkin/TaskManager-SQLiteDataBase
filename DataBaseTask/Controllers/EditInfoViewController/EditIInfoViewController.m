@@ -63,17 +63,18 @@
 - (IBAction)saveInfo:(id)sender {
     
     [self.datePicker.date timeIntervalSince1970];
-    TaskObject* task = [[TaskObject alloc] init];
     
-    task.iD                 = [NSNumber numberWithInteger:self.recordIDToEdit];
-    task.taskTitle          = self.titleOfTaskTextField.text;
-    task.taskAdditionalInfo = self.additionalInfoTextView.text;
-    task.taskPriority       = [NSNumber numberWithInteger: self.priorityControl.selectedSegmentIndex];
-    task.taskDate           = self.datePicker.date;
     
     if (self.recordIDToEdit == -1) {
+        TaskObject* task = [[TaskObject alloc] initWithId];
+        NSLog(@"task ID = %@",task.iD);
+        [self settingDataToTask:task];
         [self.mainManager addData:task];
+        
     } else {
+        TaskObject* task = [[TaskObject alloc] init];
+        task.iD = [NSNumber numberWithInteger:self.recordIDToEdit];
+        [self settingDataToTask:task];
         [self.mainManager updateData:task];
     }
 
@@ -81,6 +82,14 @@
     [self.delegate editngInfoWasFinished];
     [self.navigationController popViewControllerAnimated:YES];
     
+}
+
+
+-(void)settingDataToTask:(TaskObject*)task {
+    task.taskTitle          = self.titleOfTaskTextField.text;
+    task.taskAdditionalInfo = self.additionalInfoTextView.text;
+    task.taskPriority       = [NSNumber numberWithInteger: self.priorityControl.selectedSegmentIndex];
+    task.taskDate           = self.datePicker.date;
 }
 
 
