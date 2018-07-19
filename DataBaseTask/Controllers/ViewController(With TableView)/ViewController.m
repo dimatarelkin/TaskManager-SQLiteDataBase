@@ -44,6 +44,7 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableViewOfTasks.tableFooterView = [[UIView alloc] init];
     
     self.tableViewOfTasks.delegate = self;
     self.tableViewOfTasks.dataSource = self;
@@ -57,7 +58,6 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
     
     //loading data from DB
     [self loadData];
-    
     NSLog(@"Data Source %@",[self.dataSourceArrayOfTasks componentsJoinedByString:@" , "]);
 }
 
@@ -101,9 +101,8 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
         self.dataSourceArrayOfTasks = nil;
     }
     self.dataSourceArrayOfTasks = [self.mainManager fetchAllDataTaskObjects];
-    [self.tableViewOfTasks reloadData];     //reload the table view
+    [self.tableViewOfTasks reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
 }
-
 
 
 #pragma mark - EditInfoViewControllerDelegate
@@ -235,17 +234,6 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 
 
 
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        TaskObject* task = (TaskObject*)[self.dataSourceArrayOfTasks objectAtIndex:indexPath.row];
-        [self.mainManager deleteData:task];
-        //reload table
-        [self loadData];
-    }
-}
-
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.currentTaskLabel.text = [(CustomCell*)[tableView cellForRowAtIndexPath:indexPath] titleLabel].text;
     NSLog(@"Select row number %li",(long)indexPath.row);
@@ -256,4 +244,35 @@ static NSString* seguePopUpIdentidier = @"showPopUpIdentifier";
 
 
 
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UIContextualAction * complete =
+    [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
+                                            title:@"Complete"
+                                          handler:^(UIContextualAction *  action,  UIView *  sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+                                              TaskObject* task = (TaskObject*)[self.dataSourceArrayOfTasks objectAtIndex:indexPath.row];
+                                              [self.mainManager deleteData:task];
+                                              [self loadData];
+                                              completionHandler(YES);
+                                          }];
+    complete.backgroundColor = UIColor.orangeColor;
+    
+    UISwipeActionsConfiguration *swipe = [UISwipeActionsConfiguration configurationWithActions:@[complete]];
+    return swipe;
+}
+
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
