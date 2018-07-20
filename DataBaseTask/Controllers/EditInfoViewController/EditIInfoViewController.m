@@ -54,10 +54,10 @@ static NSInteger const kNewRecordID = -1;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+     [self.titleOfTaskTextField becomeFirstResponder];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-     [self.titleOfTaskTextField becomeFirstResponder];
 }
 
 

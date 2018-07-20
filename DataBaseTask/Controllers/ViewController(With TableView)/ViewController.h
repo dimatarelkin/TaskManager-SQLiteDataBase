@@ -10,6 +10,10 @@
 #import "EditIInfoViewController.h"
 
 
+typedef enum {
+    ActionAnimationDelete,
+    ActionAnimationAdd
+} ActionAnimation;
 
 
 

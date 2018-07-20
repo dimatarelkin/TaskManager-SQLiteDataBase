@@ -17,4 +17,5 @@
 @property (strong, nonatomic) NSDate   *taskDate;
 
 - (instancetype)initWithId;
++(void)resetID;
 @end

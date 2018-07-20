@@ -33,10 +33,20 @@ static NSString * const kTaskIncrementorID = @"taskID";
 
 -(NSNumber*)newID {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSInteger current = [userDefaults integerForKey:kTaskIncrementorID];
+    
+    NSInteger current = [userDefaults integerForKey:kTaskIncrementorID]; //load from user defaults
+    
     [userDefaults setInteger:current + 1 forKey:kTaskIncrementorID];
+    
     [userDefaults synchronize];
     return [NSNumber numberWithInteger:current];
+}
+
++(void)resetID {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSInteger current = [userDefaults integerForKey:kTaskIncrementorID]; //load from user defaults
+    current = 0;
+    [userDefaults setInteger:current forKey:kTaskIncrementorID];
 }
 
 @end

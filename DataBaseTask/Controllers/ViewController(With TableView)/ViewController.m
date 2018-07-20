@@ -27,9 +27,11 @@
 @property (strong, nonatomic) PopUpViewController* popUpVC;
 
 //data methods
--(void)loadDataFromDataBaseAndRefreshTable;
+-(void)loadDataFromDataBaseAndRefreshTableWithAnimation:(ActionAnimation)animation;
 
 @end
+
+
 
 
 
@@ -58,7 +60,7 @@ static NSString * seguePopUpIdentidier    = @"showPopUpIdentifier";
     [self loadStorageStateAndCreateDataBaseManager];
     
     //loading data from DB
-    [self loadDataFromDataBaseAndRefreshTable];
+    [self loadDataFromDataBaseAndRefreshTableWithAnimation:ActionAnimationAdd];
     NSLog(@"Data Source %@",[self.dataSourceArrayOfTasks componentsJoinedByString:@" , "]);
 }
 
@@ -84,6 +86,8 @@ static NSString * seguePopUpIdentidier    = @"showPopUpIdentifier";
 - (IBAction)storageAction:(UISegmentedControl*)sender {
     self.mainManager.type = sender.selectedSegmentIndex == 0 ? SQLiteType : CoreDataType;
     [self saveStorageState];
+    UITableViewRowAnimation action = sender.selectedSegmentIndex == 0 ? UITableViewRowAnimationRight: UITableViewRowAnimationLeft;
+    [self.tableViewOfTasks reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation: action];
     NSLog(@"Storage change to %@", self.storageTypeControl.selectedSegmentIndex == 0 ? @"SQLiteType" : @"CoreDataType");
 }
 
@@ -97,19 +101,26 @@ static NSString * seguePopUpIdentidier    = @"showPopUpIdentifier";
 
 #pragma mark - Loading Data
 
-- (void)loadDataFromDataBaseAndRefreshTable {
+- (void)loadDataFromDataBaseAndRefreshTableWithAnimation:(ActionAnimation)animation {
     if (self.dataSourceArrayOfTasks!= nil) {
         self.dataSourceArrayOfTasks = nil;
     }
     self.dataSourceArrayOfTasks = [self.mainManager fetchAllDataTaskObjects];
-    [self.tableViewOfTasks reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+    UITableViewRowAnimation action;
+    if (animation == ActionAnimationAdd) {
+        action = UITableViewRowAnimationFade;
+    } else {
+        action = UITableViewRowAnimationLeft;
+    }
+    
+    [self.tableViewOfTasks reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:action];
 }
 
 
 #pragma mark - EditInfoViewControllerDelegate
 
 - (void)editngInfoWasFinished {
-   [self loadDataFromDataBaseAndRefreshTable];
+   [self loadDataFromDataBaseAndRefreshTableWithAnimation:ActionAnimationAdd];
     NSLog(@"reload table with NEW DATASOURCE: \n%@ \nnumber of elements = %lu",
           [self.dataSourceArrayOfTasks componentsJoinedByString:@"\n"],
           [self.dataSourceArrayOfTasks count]);
@@ -170,7 +181,7 @@ static NSString * seguePopUpIdentidier    = @"showPopUpIdentifier";
     [dateFormatter setDateFormat:@"dd MMM yyyy"];
     cell.dateLabel.text = [dateFormatter stringFromDate:task.taskDate];
 
-    NSLog(@"add text - %@", cell.additionalInfo);
+    NSLog(@"reuse cell add text - %@", cell.additionalInfo);
     
     return cell;
 }
@@ -252,11 +263,14 @@ static NSString * seguePopUpIdentidier    = @"showPopUpIdentifier";
                                           handler:^(UIContextualAction *  action,  UIView *  sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
                                               TaskObject* task = (TaskObject*)[self.dataSourceArrayOfTasks objectAtIndex:indexPath.row];
                                               [self.mainManager deleteData:task];
-                                              [self loadDataFromDataBaseAndRefreshTable];
+                                              [self loadDataFromDataBaseAndRefreshTableWithAnimation:ActionAnimationDelete];
                                               completionHandler(YES);
+                                              if (self.dataSourceArrayOfTasks.count == 0) {
+                                                  [TaskObject resetID];
+                                              }
                                           }];
     complete.backgroundColor = UIColor.orangeColor;
-    
+
     UISwipeActionsConfiguration *swipe = [UISwipeActionsConfiguration configurationWithActions:@[complete]];
     return swipe;
 }
