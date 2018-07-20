@@ -149,35 +149,6 @@ static NSString * const kCoreDataFileName = @"CoreDataTest";
 
 
 -(TaskObject*)fetchTaskObjectWithID:(NSNumber*)iD {
-    
-    
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:kTaskEntityName];
-//    NSArray* allTasks;
-//
-//    if (!fetchRequest) {
-//        NSLog(@"error with fetch request");
-//    } else {
-//
-//        allTasks = [self.persistentContainer.viewContext executeFetchRequest:fetchRequest error:nil];
-//
-//        if (allTasks.count == 0) {
-//            NSLog(@"Context is empty");
-//
-//        } else {
-//            for (Tasks *manageObject in allTasks) {
-//
-//                if ([iD integerValue] == [manageObject.iD integerValue]) {
-//                    task.iD = manageObject.iD;
-//                    task.taskTitle = manageObject.taskTitle;
-//                    task.taskAdditionalInfo = manageObject.taskAdditionalInfo;
-//                    task.taskPriority = manageObject.taskPriority;
-//                    task.taskDate = manageObject.taskDate;
-//                    NSLog(@"Task was fetched");
-//                }
-//            }
-//        }
-//    }
-    
     TaskObject * task = [[TaskObject alloc] init];
     NSArray *tasks = [self fetchAllDataTaskObjects];
     for (TaskObject* taskObj in tasks) {
