@@ -56,6 +56,9 @@ static NSString * seguePopUpIdentidier    = @"showPopUpIdentifier";
     self.currentTaskLabel.layer.borderColor = UIColor.darkGrayColor.CGColor;
     self.currentTaskLabel.layer.borderWidth = 2;
     
+    [self.deleteAllButton setEnabled:NO];
+    [self.deleteAllButton setHidden:YES];
+    
     //create main manager and load
     [self loadStorageStateAndCreateDataBaseManager];
     
@@ -83,6 +86,11 @@ static NSString * seguePopUpIdentidier    = @"showPopUpIdentifier";
 
 #pragma mark - Actions
 
+- (IBAction)deleteAllAction:(id)sender {
+    [self.mainManager deleteAllData];
+    [self loadDataFromDataBaseAndRefreshTableWithAnimation:ActionAnimationDelete];
+}
+
 - (IBAction)storageAction:(UISegmentedControl*)sender {
     self.mainManager.type = sender.selectedSegmentIndex == 0 ? SQLiteType : CoreDataType;
     [self saveStorageState];
@@ -98,23 +106,35 @@ static NSString * seguePopUpIdentidier    = @"showPopUpIdentifier";
 }
 
 
-
 #pragma mark - Loading Data
 
 - (void)loadDataFromDataBaseAndRefreshTableWithAnimation:(ActionAnimation)animation {
     if (self.dataSourceArrayOfTasks!= nil) {
         self.dataSourceArrayOfTasks = nil;
     }
+    
     self.dataSourceArrayOfTasks = [self.mainManager fetchAllDataTaskObjects];
+    
+    if (self.dataSourceArrayOfTasks.count == 0) {
+        [self.deleteAllButton setEnabled:NO];
+        [self.deleteAllButton setHidden:YES];
+        self.currentTaskLabel.text = @"No Tasks";
+    } else {
+        [self.deleteAllButton setEnabled:YES];
+        [self.deleteAllButton setHidden:NO];
+        //[self.deleteAllButton.titleLabel.text = @"Delete: %lu",(unsigned long)self.dataSourceArrayOfTasks.count;
+        [self.deleteAllButton setTitle:[NSString stringWithFormat:@"Delete: %lu",(unsigned long)self.dataSourceArrayOfTasks.count] forState:UIControlStateNormal];
+    }
+    
     UITableViewRowAnimation action;
     if (animation == ActionAnimationAdd) {
         action = UITableViewRowAnimationFade;
     } else {
         action = UITableViewRowAnimationLeft;
     }
-    
     [self.tableViewOfTasks reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:action];
 }
+
 
 
 #pragma mark - EditInfoViewControllerDelegate
@@ -274,6 +294,7 @@ static NSString * seguePopUpIdentidier    = @"showPopUpIdentifier";
     UISwipeActionsConfiguration *swipe = [UISwipeActionsConfiguration configurationWithActions:@[complete]];
     return swipe;
 }
+
 
 
 @end

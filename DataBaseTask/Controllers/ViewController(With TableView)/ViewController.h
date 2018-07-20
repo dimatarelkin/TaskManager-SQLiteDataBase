@@ -19,10 +19,12 @@ typedef enum {
 
 @interface ViewController : UIViewController <EditInfoViewControllerDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *deleteAllButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOfTasks;
 @property (weak, nonatomic) IBOutlet UILabel *currentTaskLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *storageTypeControl;
 
+- (IBAction)deleteAllAction:(id)sender;
 - (IBAction)storageAction:(UISegmentedControl*)sender;
 - (IBAction)addNewRecord:(id)sender;
 @end

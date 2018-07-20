@@ -9,12 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "ManagerLayerForCoreDataAndSQLite.h"
 
+
 @interface DBManager : NSObject <ManagerDataBaseProtocol>
-
-@property (nonatomic, strong) NSMutableArray *arrColumnNames;
-@property (nonatomic, assign) int affectedRows;
-@property (nonatomic) long long lastInsertedRowID;
-
 - (instancetype)initWithDataBaseFileName:(NSString*)dbFilename;
 
 @end

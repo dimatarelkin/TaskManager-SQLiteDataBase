@@ -25,6 +25,9 @@ static NSString * const kColumnDate     = @"date";
 @property (nonatomic, strong) NSString *documentDirectory;
 @property (nonatomic, strong) NSString *dataBaseFilename;
 @property (nonatomic, strong) NSMutableArray *arrResults;
+@property (nonatomic, strong) NSMutableArray *arrColumnNames;
+@property (nonatomic, assign) int affectedRows;
+@property (nonatomic) long long lastInsertedRowID;
 
 -(void)copyDatabaseIntoDocumentsDirectory;
 -(void)runQuery:(const char *)query isQueryExecutable:(BOOL)queryExecutable;
@@ -206,7 +209,7 @@ static NSString * const kColumnDate     = @"date";
 
 
 - (void)deleteAllData {
-    NSString *deleteAllTasksQeuery = [NSString stringWithFormat:@"delete * from %@",kTableTaskName];
+    NSString *deleteAllTasksQeuery = [NSString stringWithFormat:@"delete from %@",kTableTaskName];
     [self executeQuery:deleteAllTasksQeuery];
     NSLog(@"DeleteAllData Query");
 }
