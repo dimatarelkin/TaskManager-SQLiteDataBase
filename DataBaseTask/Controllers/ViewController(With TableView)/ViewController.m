@@ -251,17 +251,17 @@ static NSString * seguePopUpIdentidier    = @"showPopUpIdentifier";
 }
 
 
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-    
-    NSLog(@"Data Source array %@", [self.dataSourceArrayOfTasks componentsJoinedByString:@"-"]);
-    
-    // Get the record ID of the selected name and set it to the recordIDToEdit property
-    TaskObject* task = [self.dataSourceArrayOfTasks objectAtIndex:indexPath.row];
-    self.recordIDToEdit = [task.iD intValue];
-    
-    //perform the segue
-    [self performSegueWithIdentifier:segueIdentifierEditInfo sender:self];
-}
+//- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+//
+//    NSLog(@"Data Source array %@", [self.dataSourceArrayOfTasks componentsJoinedByString:@"-"]);
+//
+//    // Get the record ID of the selected name and set it to the recordIDToEdit property
+//    TaskObject* task = [self.dataSourceArrayOfTasks objectAtIndex:indexPath.row];
+//    self.recordIDToEdit = [task.iD intValue];
+//
+//    //perform the segue
+//    [self performSegueWithIdentifier:segueIdentifierEditInfo sender:self];
+//}
 
 
 
@@ -295,6 +295,27 @@ static NSString * seguePopUpIdentidier    = @"showPopUpIdentifier";
     return swipe;
 }
 
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UIContextualAction * edit =
+    [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
+                                            title:@"Edit"
+                                          handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+                                              NSLog(@"Data Source array %@", [self.dataSourceArrayOfTasks componentsJoinedByString:@"-"]);
+                                              
+                                              // Get the record ID of the selected name and set it to the recordIDToEdit property
+                                              TaskObject* task = [self.dataSourceArrayOfTasks objectAtIndex:indexPath.row];
+                                              self.recordIDToEdit = [task.iD intValue];
+                                              
+                                              //perform the segue
+                                              [self performSegueWithIdentifier:segueIdentifierEditInfo sender:self];
+                                          }];
+    edit.backgroundColor = UIColor.grayColor;
+    UISwipeActionsConfiguration *leftSwipe = [UISwipeActionsConfiguration configurationWithActions:@[edit]];
+    return leftSwipe;
+    
+}
 
 
 @end
