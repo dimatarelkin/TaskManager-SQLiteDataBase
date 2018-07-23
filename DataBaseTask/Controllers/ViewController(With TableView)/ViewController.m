@@ -251,19 +251,6 @@ static NSString * seguePopUpIdentidier    = @"showPopUpIdentifier";
 }
 
 
-//- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-//
-//    NSLog(@"Data Source array %@", [self.dataSourceArrayOfTasks componentsJoinedByString:@"-"]);
-//
-//    // Get the record ID of the selected name and set it to the recordIDToEdit property
-//    TaskObject* task = [self.dataSourceArrayOfTasks objectAtIndex:indexPath.row];
-//    self.recordIDToEdit = [task.iD intValue];
-//
-//    //perform the segue
-//    [self performSegueWithIdentifier:segueIdentifierEditInfo sender:self];
-//}
-
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.currentTaskLabel.text = [(CustomCell*)[tableView cellForRowAtIndexPath:indexPath] titleLabel].text;

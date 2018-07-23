@@ -122,6 +122,14 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		624A28D62105BF63004FF7BC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				322829F520FE81230008B473 /* CustomCell */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		628F647D20F3438800C28BA1 = {
 			isa = PBXGroup;
 			children = (
@@ -145,7 +153,7 @@
 				628F648920F3438800C28BA1 /* AppDelegate.h */,
 				628F648A20F3438800C28BA1 /* AppDelegate.m */,
 				628F64AD20F39EF000C28BA1 /* Controllers */,
-				322829F520FE81230008B473 /* CustomCell */,
+				624A28D62105BF63004FF7BC /* Views */,
 				62315F5320FCB7AB00064530 /* Manager */,
 				628F648F20F3438800C28BA1 /* Main.storyboard */,
 				628F649220F3438900C28BA1 /* Assets.xcassets */,
