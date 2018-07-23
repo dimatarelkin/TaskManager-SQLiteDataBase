@@ -80,10 +80,10 @@ static NSString * const kCoreDataFileName = @"CoreDataTest";
 
 -(void)updateData:(TaskObject*)data {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:kTaskEntityName];
-    NSArray* results;
-    results = [self.persistentContainer.viewContext executeFetchRequest:fetchRequest error:nil];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"iD == %@",data.iD];
+    [fetchRequest setPredicate:predicate];
+    Tasks* manageObject = [[self.persistentContainer.viewContext executeFetchRequest:fetchRequest error:nil] firstObject];
     
-    for ( Tasks* manageObject in results) {
         if ([data.iD integerValue] == [manageObject.iD integerValue]) {
             manageObject.iD = data.iD;
             manageObject.taskTitle = data.taskTitle;
@@ -91,7 +91,7 @@ static NSString * const kCoreDataFileName = @"CoreDataTest";
             manageObject.taskPriority = data.taskPriority;
             manageObject.taskDate = data.taskDate;
         }
-    }
+    NSLog(@"man obj %@",manageObject.description);
     [self saveContext];
     NSLog(@"Task have been updated");
 }
@@ -100,16 +100,17 @@ static NSString * const kCoreDataFileName = @"CoreDataTest";
 
 
 -(void)deleteData:(TaskObject*)data {
+
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:kTaskEntityName];
-    NSArray* results;
-    results = [self.persistentContainer.viewContext executeFetchRequest:fetchRequest error:nil];
-    
-    for (Tasks* managedObject in results) {
-        if ([data.iD integerValue] == [managedObject.iD integerValue]) {
-            [self.persistentContainer.viewContext deleteObject:managedObject];
-            [self saveContext];
-            NSLog(@"Task have been deleted");
-        }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"iD == %@",data.iD];
+    [fetchRequest setPredicate:predicate];
+
+    Tasks* managedObject = [[self.persistentContainer.viewContext executeFetchRequest:fetchRequest error:nil] firstObject];
+    NSLog(@"result = %@", [managedObject description]);
+    if ([data.iD integerValue] == [managedObject.iD integerValue]) {
+        [self.persistentContainer.viewContext deleteObject:managedObject];
+        [self saveContext];
+        NSLog(@"Task have been deleted");
     }
 }
 
@@ -132,7 +133,6 @@ static NSString * const kCoreDataFileName = @"CoreDataTest";
             task.taskAdditionalInfo = manageObject.taskAdditionalInfo;
             task.taskPriority = manageObject.taskPriority;
             task.taskDate = manageObject.taskDate;
-        
             [tasks addObject:task];
         }
         
@@ -176,9 +176,9 @@ static NSString * const kCoreDataFileName = @"CoreDataTest";
             for (Tasks *manageObject in results) {
                 //cleaning context
                 [manageObject.managedObjectContext deleteObject:manageObject];
-                [self saveContext];
                 NSLog(@"Context have been cleaned");
             }
+            [self saveContext];
         }
     }
 }

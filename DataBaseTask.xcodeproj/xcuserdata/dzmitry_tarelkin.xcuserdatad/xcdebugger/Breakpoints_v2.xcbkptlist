@@ -42,27 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DataBaseTask/Manager/CoreDataManager/CoreDataManager.m"
-            timestampString = "553789433.15847"
+            timestampString = "554030770.2141989"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "-updateData:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DataBaseTask/Manager/CoreDataManager/CoreDataManager.m"
-            timestampString = "553789433.15855"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "-fetchAllDataTaskObjects"
             landmarkType = "7">
          </BreakpointContent>
@@ -73,40 +57,8 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DataBaseTask/Manager/CoreDataManager/CoreDataManager.m"
-            timestampString = "553789433.1585979"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "-updateData:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DataBaseTask/Manager/CoreDataManager/CoreDataManager.m"
-            timestampString = "553789433.158648"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "-updateData:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "DataBaseTask/Controllers/EditInfoViewController/EditIInfoViewController.m"
-            timestampString = "553789433.1586961"
+            timestampString = "554030770.2146"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "24"
@@ -122,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DataBaseTask/Controllers/EditInfoViewController/EditIInfoViewController.m"
-            timestampString = "553789433.1587451"
+            timestampString = "554030770.214685"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "50"
@@ -138,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DataBaseTask/Controllers/EditInfoViewController/EditIInfoViewController.m"
-            timestampString = "553789433.158798"
+            timestampString = "554030770.214756"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "45"
@@ -154,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DataBaseTask/Controllers/EditInfoViewController/EditIInfoViewController.m"
-            timestampString = "553789433.158862"
+            timestampString = "554030770.2148269"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "96"
@@ -202,7 +154,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DataBaseTask/Controllers/EditInfoViewController/EditIInfoViewController.m"
-            timestampString = "553789433.1590641"
+            timestampString = "554030770.21495"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "48"
@@ -218,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DataBaseTask/Manager/CoreDataManager/CoreDataManager.m"
-            timestampString = "553789433.15914"
+            timestampString = "554030770.215032"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "-fetchAllDataTaskObjects"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DataBaseTask/Manager/CoreDataManager/CoreDataManager.m"
-            timestampString = "553789433.159207"
+            timestampString = "554030770.2154911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "-fetchAllDataTaskObjects"
             landmarkType = "7">
          </BreakpointContent>
@@ -250,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DataBaseTask/Manager/CoreDataManager/CoreDataManager.m"
-            timestampString = "553789433.159268"
+            timestampString = "554030770.215856"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "-fetchAllDataTaskObjects"
             landmarkType = "7">
          </BreakpointContent>
@@ -266,7 +218,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DataBaseTask/Controllers/EditInfoViewController/EditIInfoViewController.m"
-            timestampString = "553789433.159326"
+            timestampString = "554030770.216193"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
@@ -282,7 +234,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DataBaseTask/Controllers/EditInfoViewController/EditIInfoViewController.m"
-            timestampString = "553789433.159386"
+            timestampString = "554030770.216301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "68"
@@ -298,7 +250,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DataBaseTask/Controllers/EditInfoViewController/EditIInfoViewController.m"
-            timestampString = "553789433.1594501"
+            timestampString = "554030770.216365"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "72"
@@ -352,54 +304,6 @@
             startingLineNumber = "280"
             endingLineNumber = "280"
             landmarkName = "-updateData:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DataBaseTask/Controllers/ViewController(With TableView)/ViewController.m"
-            timestampString = "553792345.050266"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "-loadDataFromDataBaseAndRefreshTableWithAnimation:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DataBaseTask/Controllers/ViewController(With TableView)/ViewController.m"
-            timestampString = "553792345.0509419"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "-loadDataFromDataBaseAndRefreshTableWithAnimation:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DataBaseTask/Controllers/ViewController(With TableView)/ViewController.m"
-            timestampString = "553792345.051343"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "-loadDataFromDataBaseAndRefreshTableWithAnimation:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

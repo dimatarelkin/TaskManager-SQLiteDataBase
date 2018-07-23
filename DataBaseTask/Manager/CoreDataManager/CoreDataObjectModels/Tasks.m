@@ -116,5 +116,10 @@
 }
 
 
-
+- (NSString *)description {
+    return [NSString stringWithFormat:@"\n ID = %@\n task title = %@\n priority = %@\n addInfo = %@\n date = %@",
+            self.iD, self.taskTitle,
+            self.taskPriority, self.taskAdditionalInfo,
+            [self.taskDate description]];
+}
 @end
